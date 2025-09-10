@@ -77,7 +77,7 @@ export function AIspireFormPage() {
     // Simulate form submission
     try {
       await new Promise(resolve => setTimeout(resolve, 2000))
-      toast.success('Application submitted successfully! We\'ll get back to you within 2 weeks.')
+      toast.success('Application submitted successfully! We\'ll get back to you within 1 weeks.')
       
       // Reset form
       setFormData({

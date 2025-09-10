@@ -1,0 +1,136 @@
+const projects = [
+    {
+      id: 9,
+      title: "Crop Yield Prediction",
+      description: "A machine learning model that predicts crop yields based on environmental conditions, soil health, and historical data. The model helps farmers optimize their agricultural strategies for better productivity.",
+      imageSrc: "https://images.pexels.com/photos/539856/pexels-photo-539856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      tags: ["Machine Learning", "Agriculture", "Data Science", "Python"],
+      techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+      category: "machine-learning",
+      year: "2024",
+      team: ["Yogesh",],
+      githubLink: "https://github.com/yogeshsingh360/crop_yield",
+      demoLink: "https://crop-yield-predict.onrender.com/"
+    },
+    {
+    id: 0,
+    title: "Face Recognition",
+    description: "A facial recognition system that detects and analyzes live facial recordings to determine a person's mood based on expressions and gestures. It can be used for sentiment analysis, security authentication, and personalized user experiences.",
+    imageSrc: "https://img.freepik.com/free-photo/facial-recognition-collage-concept_23-2150038886.jpg?t=st=1743115390~exp=1743118990~hmac=261b82cf9d763786b366816d0d55d8b773ea9a9fb255bf60cb696c5c116adaba&w=1380",
+    tags: ["Computer Vision", "Face Recognition", "AI", "Deep Learning"],
+    category: "computer-vision",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/face-recognition",
+    demoLink: "https://example.com/face-recognition-demo"
+  },
+  {
+    id: 1,
+    title: "Book Recommender",
+    description: "An AI-powered book recommendation system that suggests books based on user preferences, reading history, and genre interests. It utilizes machine learning and collaborative filtering to provide personalized book recommendations.",
+    imageSrc: "https://images.pexels.com/photos/16380906/pexels-photo-16380906/free-photo-of-webpage-of-ai-chatbot-a-prototype-ai-smith-open-chatbot-is-seen-on-the-website-of-openai-on-a-apple-smartphone-examples-capabilities-and-limitations-are-shown.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["Machine Learning", "Recommender System", "Clustering Algorithm", "Unsupervised Learning"],
+    category: "recommendation-system",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/book-recommender",
+    demoLink: "https://example.com/book-recommender-demo"
+  },
+  {
+    id: 2,
+    title: "Next Word Predictor using LSTM",
+    description: "An AI-based text prediction system that uses an LSTM (Long Short-Term Memory) neural network to predict the next word in a given sentence. It is trained on large text datasets to improve accuracy and contextual understanding.",
+    imageSrc: "https://images.pexels.com/photos/6964149/pexels-photo-6964149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["Deep Learning", "LSTM", "Natural Language Processing", "AI"],
+    category: "natural-language-processing",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/D-i-vyansh/next-word/tree/main/next_word",
+    demoLink: ""
+  },
+
+  {
+    id: 3,
+    title: "Sky Saving Pro",
+    description: "A real-time flight price comparison tool that scans multiple airline and travel platforms to help users find the cheapest available flight tickets. It includes alert features to notify users about price drops.",
+    imageSrc: "https://images.pexels.com/photos/99567/aircraft-holiday-sun-tourism-99567.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["Web Scraping", "Price Comparison", "Automation", "TravelTech"],
+    category: "automation",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/sky-saving-pro",
+    demoLink: "https://example.com/sky-saving-pro-demo"
+  },
+  {
+    id: 4,
+    title: "Facial Cursor Control",
+    description: "A vision-based cursor control system that allows users to navigate their computer screen using eye movements. It utilizes iris tracking and facial gesture detection to provide a hands-free interaction experience.",
+    imageSrc: "https://images.pexels.com/photos/5474035/pexels-photo-5474035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["AI", "Gesture Control", "Computer Vision", "Accessibility"],
+    category: "human-computer-interaction",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/facial-cursor-control",
+    demoLink: "https://example.com/facial-cursor-control-demo"
+  },
+  {
+    id: 5,
+    title: "Article Summarizer and Sentiment Analysis",
+    description: "An NLP-based application that extracts key insights from articles, generates concise summaries, and analyzes the sentiment of the text to determine whether it is positive, negative, or neutral.",
+    imageSrc: "https://images.pexels.com/photos/7947849/pexels-photo-7947849.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["NLP", "Text Summarization", "Sentiment Analysis", "AI"],
+    category: "natural-language-processing",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/article-summarizer",
+    demoLink: "https://example.com/article-summarizer-demo"
+  },
+  {
+    id: 6,
+    title: "The World Revolves Around You",
+    description: "An interactive art installation where users control a particle system mimicking bird flocking behavior using hand gestures in front of a webcam. The project blends creative coding with AI-driven motion tracking.",
+    imageSrc: "https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["Creative Coding", "AI", "Gesture Recognition", "Computer Vision"],
+    category: "interactive-art",
+    year: "2024",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/world-revolves",
+    demoLink: "https://jgyasu.github.io/the-world-revolves-around-you/"
+  },
+  {
+    id: 7,
+    title: "SEO Blog Generator",
+    description: "An AI-powered blog generation system that automates research, content structuring, SEO optimization, grammar correction, and sentiment analysis. It ensures high-quality blog posts with optimized visibility.",
+    imageSrc: "https://images.pexels.com/photos/106341/pexels-photo-106341.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["AI", "Content Generation", "SEO", "NLP"],
+    category: "content-automation",
+    techStack:["Machine Learning", "Data Science", "Python"],
+    year: "2024",
+    team: ["Divyansh"],
+    githubLink: "https://github.com/jgyasu/the-world-revolves-around-you",
+    demoLink: "https://example.com/seo-blog-generator-demo"
+  },
+  {
+    id: 8,
+    title: "Controlling a Particle System Mimicking Bird Flocking Behaviour",
+    description: "An AI-based hand gesture recognition system that controls a particle system resembling bird flocking behavior. Users can interact with the simulation in real-time using hand movements.",
+    imageSrc: "https://images.pexels.com/photos/8728105/pexels-photo-8728105.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["AI", "Particle Systems", "Gesture Control", "Creative Coding"],
+    category: "interactive-simulation",
+    year: "2024",
+    techStack:["Machine Learning", "Data Science", "Python"],
+    team: ["Jigyasu"],
+    githubLink: "https://github.com/example/particle-flocking",
+    demoLink: "https://example.com/particle-flocking-demo"
+  },
+]
+export default projects
+
+

@@ -19,11 +19,9 @@ import BlogPage from './components/BlogPage'
 import { FoundersPage } from './components/FoundersPage'
 import { Toaster } from './components/ui/sonner'
 import { ChatBot } from './components/ChatBot'
-
-// Import splash screen
 import SplashScreen from './components/SplashScreen'
+import MainWebsite from './components/MainWebsite'
 
-// ----------------- Auth Context -----------------
 interface AuthContextType {
   userData: any
   isLoggedIn: boolean
@@ -39,13 +37,11 @@ export const useAuth = () => {
   return context
 }
 
-// ----------------- Protected Route -----------------
 function ProtectedRoute({ children }: { children: React.ReactNode }) {
   const { isLoggedIn } = useAuth()
   return isLoggedIn ? <>{children}</> : <Navigate to="/login" replace />
 }
 
-// ----------------- Scroll To Top -----------------
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
@@ -54,13 +50,12 @@ function ScrollToTop() {
   return null
 }
 
-// ----------------- Main Layout -----------------
 function AppLayout() {
   const [isDarkMode, setIsDarkMode] = useState(true)
   const [userData, setUserData] = useState<any>(null)
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 
-  // Initialize theme & auth
+
   useEffect(() => {
     const savedTheme = localStorage.getItem('dsai-theme')
     if (savedTheme) {
@@ -145,8 +140,6 @@ function AppLayout() {
     </AuthContext.Provider>
   )
 }
-
-// ----------------- Main App -----------------
 export default function App() {
   const [showSplash, setShowSplash] = useState(true)
 

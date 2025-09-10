@@ -6,27 +6,145 @@ import { ImageWithFallback } from './dsai/ImageWithFallback'
 import { FloatingKeywords } from './FloatingKeywords'
 
 export function FoundersPage() {
-  const founders = [
-    {
-      name: 'Divyansh Singhal',
-      role: 'Founding President',
-      year: '2023',
-      branch: 'Computational Mathematics',
-      image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face',
-      bio: 'Passionate about AI research and machine learning applications. Led the founding team to establish DSAI Club as a premier tech community at NIT Agartala.',
-      achievements: [
-        'Founded DSAI Club in January 2023',
-        'Published 3 research papers in AI conferences',
-        'Mentored 50+ students in ML projects'
-      ],
-      social: {
-        linkedin: 'https://linkedin.com/in/',
-        github: 'https://github.com/',
-        email: 'arn@dsai.org'
-      },
-      specialties: ['Machine Learning', 'Computer Vision', 'Research', 'Leadership']
+   const founders = [
+  {
+    name: "Divyansh Singhal",
+    role: "Founding President",
+    year: "2023",
+    branch: "Computational Mathematics",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    bio: "Passionate about AI research and machine learning applications. Led the founding team to establish DSAI Club as a premier tech community at NIT Agartala.",
+    achievements: [
+      "Founded DSAI Club in January 2023",
+      "Selected amon Top 3000 students out of 85k+ applicants for the Amazon ML Summer Programme 2024",
+      "Published 3 research papers in AI conferences",
+      "Mentored 50+ students in ML projects",
+      "Secured position in the elite cohort by ranking within the Top 300 out of 2000+ participating teams in E-yantra (IIT B)",
+      "Orchestrated and managed the highly successful event Ananya 6.0, as well as multiple events at Moksha 8.0 and Aayam 9.0 as an Event Lead.",
+      "Ranked among top top 1.5% teams from 75k+ teams in Amazon ML Hackathon and secured 1st position in HackRx 5.0"
+    ],
+    social: {
+      linkedin: "https://linkedin.com/in/",
+      github: "https://github.com/",
+      email: "divyanshsinghal067@gmail.com",
+      club_email: "arn@dsai.org"
     },
-  ]
+    specialties: [
+      "Machine Learning",
+      "Computer Vision",
+      "Research",
+      "Leadership"
+    ]
+  },
+  {
+    name: "Diptanu Biswas",
+    role: "Founding President",
+    year: "2023-24",
+    branch: "Computational Mathematics",
+    image: "https://drive.google.com/file/d/1fQDM_7A_wnp3n5u4U-LnZVSFf9lI8vhL/view?usp=drivesdk",
+    bio: "Transforming data into insights with AI and machine learning. Passionate about leveraging technology to drive innovation and growth.",
+    achievements: [
+      "Founded DSAI Club (Jan 2024)",
+      "Founded DSAI Community in NIT AGARTALA (Sep 2023)",
+      "QUALIFIED GATE 2025 (DA)",
+      "Internship at IIT KGP",
+      "National finalist in AI/ML hackathons"
+    ],
+    social: {
+      linkedin: "https://linkedin.com/in/diptanu01/",
+      github: "https://github.com/diptanu6/",
+      email: "officialdiptanu01@gmail.com"
+    },
+    specialties: [
+      "Artificial Intelligence (AI)",
+      "Machine Learning (ML)",
+      "Natural Language Processing (NLP)",
+      "Computer Vision (CV)",
+      "Data Science (DS)"
+    ]
+  },
+  {
+    name: "Abhishek Kumar",
+    role: "Founder of DSAI Club",
+    year: "2023",
+    branch: "Computational Mathematics",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop&crop=face",
+    bio: "Passionate in areas of including data science, machine learning, deep learning, generative AI, and large language models.",
+    achievements: [
+      "Founded DSAI Club (Jan 2024)",
+      "Solved 1000+ problems on different platforms including LeetCode, GeeksForGeeks, CodeChef, Codeforces",
+      "CodeChef: Ranked 4 star(1821) with maximum 1821 rating.",
+      "LeetCode: Solved 500+ Problems with maximum 1847 rating",
+      "Secured global rank 6 & 74 in Div3 & Div2 of CodeChef Starters 115 & 129 respectively"
+    ],
+    social: {
+      linkedin: "https://www.linkedin.com/in/abhisheknita/",
+      github: "https://github.com/abhi62079",
+      email: "abhishekk.nita@gmail.com"
+    },
+    specialties: [
+      "Computational Mathematics and Algorithm Design",
+      "Data Structures and Competitive Programming",
+      "Data Science and Machine Learning Applications",
+      "Deep Learning, Generative AI, and Large Language Models",
+      "FinTech and Backend Development Experience",
+      "Leadership"
+    ]
+  },
+  {
+    name: "Harsh Vardhan Kumar",
+    role: "Trainee Software Engineer (Java Backend) at Global Logic",
+    year: "2025",
+    branch: "Computer Science and Engineering",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop&crop=face",
+    bio: "Aspiring backend developer passionate about building scalable systems and AI applications. Skilled in Java, Spring Boot, and full-stack development.",
+    achievements: [
+      "LeetCode Knight (Top 4.5%) with 450+ solved problems",
+      "CodeChef 4-Star (Max Rating: 1827)",
+      "Codeforce pupil (Max Rating: 1355)",
+      "Finalist at RANLP 2025 PolyHope-M Shared Task",
+      "CodeChef Global Rank 232 in Lunchtime Division 3",
+      "Secured Top 2% in JEE Main 2021 among 1.4M candidates"
+    ],
+    social: {
+      linkedin: "https://www.linkedin.com/in/harsh-vardhan-8b406a250",
+      github: "https://github.com/007Harshvardhan",
+      email: "harshvardhan1412002@gmail.com"
+    },
+    specialties: [
+      "Java Backend",
+      "Spring Boot",
+      "Machine Learning",
+      "Full Stack Development",
+      "Problem Solving"
+    ]
+  },
+  {
+    name: "Punit Singh",
+    role: "Founder of DSAI Club",
+    year: "2023",
+    branch: "Computational Mathematics",
+    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop&crop=face",
+    bio: "Passionate about software development having deep interest about Machine Learning and Artificial Intelligence",
+    achievements: [
+      "Founded DSAI Club (Jan 2024)",
+      "Codeforces Specialist",
+      "CodeChef 4-Star(Max Rating: 1839)",
+      "Ex-Algo Design and Testing Intern at IIT Guwahati"
+    ],
+    social: {
+      linkedin: "https://www.linkedin.com/in/punit-nita",
+      github: "",
+      email: "punit.nita@gmail.com"
+    },
+    specialties: [
+      "Algorithm  Design",
+      "Software Design",
+      "Backend Developer",
+      "Leadership"
+    ]
+  }
+]
 
   const clubMilestones = [
     {
@@ -75,9 +193,9 @@ export function FoundersPage() {
       </section>
 
       {/* Founders Grid */}
-      <section className="py-16">
+      <section className="py-6">
         <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {founders.map((founder, index) => (
               <Card key={index} className="border-border/50 hover:border-accent/50 transition-all duration-300 hover:glow-accent group">
                 <CardHeader className="text-center">

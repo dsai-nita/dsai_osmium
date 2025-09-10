@@ -3,6 +3,7 @@ interface IconProps {
   size?: number;
 }
 
+
 export const Icons = {
   Brain: ({ className = "", size = 24 }: IconProps) => (
     <svg

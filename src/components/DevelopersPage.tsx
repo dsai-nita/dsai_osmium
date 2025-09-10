@@ -32,9 +32,30 @@ interface ContributionGuide {
 
 const coreTeam: Developer[] = [
   {
-    id: 'sebrin',
-    name: 'Sebrin',
+    id: '1',
+    name: 'Shubham sebrin',
     role: 'Project Lead & Full Stack Developer',
+    description: 'Leading the DSAI website development with expertise in React, TypeScript, and modern web technologies. Passionate about creating intuitive user experiences.',
+    avatar: '/api/placeholder/150/150',
+    skills: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express.js'],
+    github: 'https://github.com/sebrin',
+    linkedin: 'https://linkedin.com/in/sebrin',
+    email: 'sebrin@dsai.club',
+    contributions: [
+      'Project architecture and initial setup',
+      'Navigation and routing system',
+      'Homepage with animated hero section',
+      'Squad page with team hierarchy',
+      'Footer design and implementation',
+      'Theme system and dark mode'
+    ],
+    joinDate: '2024-01',
+    status: 'Core'
+  },
+  {
+    id: '2',
+    name: 'Abhay Pandey',
+    role: 'Full Stack Developer',
     description: 'Leading the DSAI website development with expertise in React, TypeScript, and modern web technologies. Passionate about creating intuitive user experiences.',
     avatar: '/api/placeholder/150/150',
     skills: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express.js'],
@@ -225,7 +246,7 @@ export function DevelopersPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="gradient-text mb-6">
+            <h1 className="gradient-text text-5xl font-bold mb-6">
               Developers & Contributors
             </h1>
             <p className="text-xl text-muted-foreground mb-12 max-w-2xl mx-auto">
@@ -289,7 +310,7 @@ export function DevelopersPage() {
                 transition={{ duration: 0.8 }}
               >
                 <div className="text-center mb-12">
-                  <h2 className="gradient-text mb-4">Core Development Team</h2>
+                  <h2 className="gradient-text text-2xl mb-4">Core Development Team</h2>
                   <p className="text-muted-foreground max-w-2xl mx-auto">
                     The core team members who architect, develop, and maintain the DSAI website with dedication and expertise.
                   </p>
@@ -369,7 +390,7 @@ export function DevelopersPage() {
 
                 {/* Contact for Contributions */}
                 <div className="bg-card/50 border border-border rounded-lg p-8 text-center">
-                  <h3 className="gradient-text mb-4">Ready to Contribute?</h3>
+                  <h3 className="gradient-text text-3xl mb-4">Ready to Contribute?</h3>
                   <p className="text-muted-foreground mb-6 max-w-2xl mx-auto">
                     Have an idea or want to contribute? We'd love to hear from you! Reach out to our team and let's build something amazing together.
                   </p>
@@ -387,7 +408,7 @@ export function DevelopersPage() {
                       </a>
                     </Button>
                     <Button variant="outline" asChild>
-                      <a href="https://discord.gg/dsai" target="_blank" rel="noopener noreferrer">
+                      <a href="https://discord.gg" target="_blank" rel="noopener noreferrer">
                         <MessageSquare className="h-4 w-4 mr-2" />
                         Join Discord
                       </a>
