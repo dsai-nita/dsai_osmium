@@ -4,7 +4,7 @@ import { Button } from './ui/button'
 import { Card, CardContent } from './ui/card'
 import { Badge } from './ui/badge'
 import { ImageWithFallback } from './dsai/ImageWithFallback'
-import galleryItems from '../../assets/galleryData'
+import galleryItems from '../../assets/GalleryData'
 
 export function GalleryPage() {
   const [selectedCategory, setSelectedCategory] = useState('all')
@@ -176,3 +176,4 @@ export function GalleryPage() {
 }
 
 export default GalleryPage;
+
