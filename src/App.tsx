@@ -150,14 +150,9 @@ function AppLayout() {
 export default function App() {
   const [showSplash, setShowSplash] = useState(true)
 
-  return (
-    <Router>
-      {showSplash ? (
-        <SplashScreen onFinish={() => setShowSplash(false)} /> 
-        
-      ) : (
-        <AppLayout />
-      )}
-    </Router>
+  return showSplash ? (
+    <SplashScreen onFinish={() => setShowSplash(false)} />
+  ) : (
+    <AppLayout />
   )
 }
