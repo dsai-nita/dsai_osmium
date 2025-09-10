@@ -20,6 +20,8 @@ import { FoundersPage } from './components/FoundersPage'
 import { Toaster } from './components/ui/sonner'
 import { ChatBot } from './components/ChatBot'
 
+// Import splash screen
+import SplashScreen from './components/SplashScreen'
 
 // ----------------- Auth Context -----------------
 interface AuthContextType {
@@ -145,10 +147,17 @@ function AppLayout() {
 }
 
 // ----------------- Main App -----------------
-export default function App() { 
+export default function App() {
+  const [showSplash, setShowSplash] = useState(true)
+
   return (
     <Router>
+      {showSplash ? (
+        <SplashScreen onFinish={() => setShowSplash(false)} /> 
+        
+      ) : (
         <AppLayout />
+      )}
     </Router>
   )
 }
