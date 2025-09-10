@@ -1,226 +1,159 @@
-import { useState } from 'react'
-import { useNavigate, Link } from 'react-router-dom'
-import { Icons } from './Icons'
-import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { Input } from './ui/input'
-import { Label } from './ui/label'
-import { Checkbox } from './ui/checkbox'
-import { toast } from 'sonner@2.0.3'
-import { useAuth } from '../App'
+import { useState } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+import { TestTube, Loader2, BrainCircuit } from 'lucide-react'; // Added BrainCircuit
+import { Icons } from './Icons';
+import { Button } from './ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card';
+import { Input } from './ui/input';
+import { Label } from './ui/label';
+import { Checkbox } from './ui/checkbox';
+import { toast } from 'sonner';
+import { useAuth } from '../App';
+import { motion } from 'framer-motion';
+import { AnimatedBackground } from './AnimatedBackground';
+import { FloatingKeywords } from './FloatingKeywords';
+import { Separator } from './ui/separator';
+
+const mockUser = {
+  id: 1,
+  name: "Sebrin",
+  email: "sebrin@gmail.com",
+  password: "crazyxyz123",
+  role: "Member",
+  // ... other user details
+};
 
 export function LoginPage() {
-  const navigate = useNavigate()
-  const { handleLogin: authLogin } = useAuth()
-  const [showPassword, setShowPassword] = useState(false)
-  const [isLoading, setIsLoading] = useState(false)
+  const navigate = useNavigate();
+  const { handleLogin: authLogin } = useAuth();
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [loginData, setLoginData] = useState({
     email: '',
     password: '',
     rememberMe: false
-  })
+  });
 
-  // Mock user data for demonstration
-  const mockUsers = [
-    {
-      id: 1,
-      name: "Rahul Sharma",
-      email: "rahul.sharma@nita.ac.in",
-      password: "password123",
-      role: "President",
-      department: "Computer Science & Engineering",
-      year: "4th Year",
-      rollNumber: "2021UCS001",
-      joinDate: "January 2023",
-      projects: 8,
-      events: 15,
-      achievements: ["Best Project Award 2024", "AI Innovation Challenge Winner"],
-      bio: "Passionate about machine learning and computer vision. Leading the DSAI club with a vision to make AI accessible to everyone.",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NTY0OTczNzF8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    },
-    {
-      id: 2,
-      name: "Demo User",
-      email: "demo@nita.ac.in",
-      password: "demo123",
-      role: "Member",
-      department: "Electronics & Communication",
-      year: "3rd Year",
-      rollNumber: "2022UEC045",
-      joinDate: "March 2024",
-      projects: 3,
-      events: 8,
-      achievements: ["Workshop Completion Certificate"],
-      bio: "Exploring the intersection of AI and hardware design.",
-      avatar: "https://images.unsplash.com/photo-1494790108755-2616b612b8ad?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjBwb3J0cmFpdHxlbnwxfHx8fDE3NTY0OTczODN8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-    }
-  ]
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { id, value } = e.target;
+    setLoginData(prev => ({ ...prev, [id]: value }));
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsLoading(true)
+    e.preventDefault();
+    setIsLoading(true);
 
-    // Simulate authentication delay
-    await new Promise(resolve => setTimeout(resolve, 1500))
+    await new Promise(resolve => setTimeout(resolve, 1500));
 
-    // Mock authentication
-    const user = mockUsers.find(u => u.email === loginData.email && u.password === loginData.password)
-    
-    if (user) {
-      toast.success(`Welcome back, ${user.name}!`)
-      authLogin(user)
-      navigate('/member-dashboard')
+    if (loginData.email === mockUser.email && loginData.password === mockUser.password) {
+      toast.success(`Welcome back, ${mockUser.name}!`, {
+        description: 'Redirecting you to your dashboard...',
+      });
+      authLogin(mockUser);
+      navigate('/member-dashboard');
     } else {
-      toast.error('Invalid email or password. Contact Admin')
+      toast.error('Invalid Credentials', {
+        description: 'Please check your email and password, or contact an admin.',
+      });
     }
 
-    setIsLoading(false)
-  }
+    setIsLoading(false);
+  };
 
-
+  const fillDemoCredentials = () => {
+    setLoginData({
+        email: mockUser.email,
+        password: mockUser.password,
+        rememberMe: true,
+    });
+    toast.info('Demo credentials filled in for you!');
+  };
 
   return (
-    <div className="min-h-screen pt-24 pb-24 px-4 flex items-center justify-center">
-      <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold gradient-text mb-4">DSAI Member Portal</h1>
-          <p className="text-muted-foreground">
-            Secure login for DSAI club members only
-          </p>
-        </div>
+    <div className="min-h-screen w-full relative overflow-hidden flex items-center justify-center p-4 pt-24 pb-12">
+      <AnimatedBackground />
+      <FloatingKeywords count={8} />
 
-        <Card className="border-border/50">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Icons.LogIn className="h-5 w-5 text-accent" />
-              Member Login
-            </CardTitle>
-            <CardDescription>
-              Enter your member credentials to access your dashboard
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <form onSubmit={handleLogin} className="space-y-4">
-              <div>
-                <Label htmlFor="login-email">Email Address</Label>
-                <div className="relative">
-                  <Icons.Mail className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="login-email"
-                    type="email"
-                    value={loginData.email}
-                    onChange={(e) => setLoginData(prev => ({ ...prev, email: e.target.value }))}
-                    placeholder="your.email@nita.ac.in"
-                    className="pl-10"
-                    required
-                  />
-                </div>
-              </div>
-
-              <div>
-                <Label htmlFor="login-password">Password</Label>
-                <div className="relative">
-                  <Icons.Lock className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
-                  <Input
-                    id="login-password"
-                    type={showPassword ? "text" : "password"}
-                    value={loginData.password}
-                    onChange={(e) => setLoginData(prev => ({ ...prev, password: e.target.value }))}
-                    placeholder="Enter your password"
-                    className="pl-10 pr-10"
-                    required
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="absolute right-1 top-1 h-8 w-8 px-0"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? (
-                      <Icons.EyeOff className="h-4 w-4" />
-                    ) : (
-                      <Icons.Eye className="h-4 w-4" />
-                    )}
-                  </Button>
-                </div>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <Checkbox
-                    id="remember"
-                    checked={loginData.rememberMe}
-                    onCheckedChange={(checked) => 
-                      setLoginData(prev => ({ ...prev, rememberMe: checked as boolean }))
-                    }
-                  />
-                  <Label htmlFor="remember" className="text-sm">Remember me</Label>
-                </div>
-                <Button variant="link" className="text-accent p-0 h-auto">
-                  Forgot password?
-                </Button>
-              </div>
-
-              <Button 
-                type="submit" 
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-                disabled={isLoading}
-              >
-                {isLoading ? (
-                  <>
-                    <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-current mr-2" />
-                    Signing in...
-                  </>
-                ) : (
-                  'Sign In to Dashboard'
-                )}
-              </Button>
-
-              {/* Demo Credentials */}
-              {/* <div className="mt-6 p-4 bg-muted/50 rounded-lg border border-border">
-                <p className="text-sm font-medium mb-2">Demo Credentials:</p>
-                <p className="text-xs text-muted-foreground mb-1">
-                  Email: demo@nita.ac.in
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, ease: 'easeOut' }}
+        className="relative z-10 w-full max-w-4xl"
+      >
+        <Card className="grid md:grid-cols-2 overflow-hidden shadow-2xl border-border/50">
+          {/* Left Side - Visuals (Updated with large icon) */}
+          <div className="hidden md:flex flex-col text-center justify-center p-8 bg-gradient-to-br from-primary/20 to-accent/20">
+            <div className="flex flex-col items-center justify-center">
+                <BrainCircuit className="w-32 h-32 text-accent/50 mb-6" strokeWidth={1} />
+                <h2 className="text-2xl font-bold text-foreground">Welcome Back to the Future of AI</h2>
+                <p className="text-muted-foreground mt-2 text-sm max-w-xs">
+                    Access your personalized dashboard, track your progress, and connect with fellow innovators.
                 </p>
-                <p className="text-xs text-muted-foreground">
-                  Password: demo123
-                </p>
-              </div> */}
-            </form>
-          </CardContent>
-        </Card>
-
-        <div className="text-center mt-6 space-y-4">
-          <div className="p-4 bg-muted/30 rounded-lg border border-border">
-            <Icons.Lock className="h-8 w-8 text-accent mx-auto mb-3" />
-            <p className="text-sm font-medium mb-2">Members Only Access</p>
-            <p className="text-xs text-muted-foreground">
-              This portal is exclusively for registered DSAI club members. 
-              If you're interested in joining, please check out our {' '}
-              <Button 
-                variant="link" 
-                className="text-accent p-0 h-auto text-xs"
-                asChild
-              >
-                <Link to="/aispire">AIspire orientation program</Link>
-              </Button>
-              .
-            </p>
+            </div>
+            <p className="text-xs text-muted-foreground mt-auto pt-8">&copy; {new Date().getFullYear()} DSAI Club</p>
           </div>
-          
-          <p className="text-sm text-muted-foreground">
-            Need help accessing your account? {' '}
-            <Button 
-              variant="link" 
-              className="text-accent p-0 h-auto"
-              asChild
-            >
-              <Link to="/contact">Contact our support team</Link>
-            </Button>
-          </p>
-        </div>
-      </div>
+
+          {/* Right Side - Login Form */}
+          <div className="p-8">
+            <CardHeader className="px-0">
+              <CardTitle className="flex items-center gap-2 text-2xl">
+                <Icons.LogIn className="h-6 w-6 text-accent" />
+                Member Portal Login
+              </CardTitle>
+              <CardDescription>
+                Enter your credentials to access the dashboard.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="px-0">
+              <form onSubmit={handleLogin} className="space-y-4">
+                <div>
+                  <Label htmlFor="email">Email Address</Label>
+                  <div className="relative">
+                    <Icons.Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="email" type="email" value={loginData.email} onChange={handleChange} placeholder="your.email@nita.ac.in" className="pl-10" required />
+                  </div>
+                </div>
+                <div>
+                  <Label htmlFor="password">Password</Label>
+                  <div className="relative">
+                    <Icons.Lock className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                    <Input id="password" type={showPassword ? "text" : "password"} value={loginData.password} onChange={handleChange} placeholder="Enter your password" className="pl-10 pr-10" required />
+                    <Button type="button" variant="ghost" size="icon" className="absolute right-1 top-1/2 -translate-y-1/2 h-7 w-7" onClick={() => setShowPassword(!showPassword)}>
+                      {showPassword ? <Icons.EyeOff className="h-4 w-4" /> : <Icons.Eye className="h-4 w-4" />}
+                    </Button>
+                  </div>
+                </div>
+                <div className="flex items-center justify-between text-sm">
+                  <div className="flex items-center space-x-2">
+                    <Checkbox id="rememberMe" checked={loginData.rememberMe} onCheckedChange={(checked) => setLoginData(prev => ({ ...prev, rememberMe: !!checked }))} />
+                    <Label htmlFor="rememberMe">Remember me</Label>
+                  </div>
+                  <Button variant="link" asChild className="text-accent p-0 h-auto"><Link to="/forgot-password">Forgot password?</Link></Button>
+                </div>
+                <Button type="submit" className="w-full" disabled={isLoading}>
+                  {isLoading ? <Loader2 className="animate-spin h-4 w-4 mr-2" /> : <Icons.LogIn className="h-4 w-4 mr-2" />}
+                  {isLoading ? 'Signing in...' : 'Sign In'}
+                </Button>
+              </form>
+              
+              <Separator className="my-6">
+                <span className="text-xs text-muted-foreground bg-card px-2">OR</span>
+              </Separator>
+              
+              <div className="space-y-3">
+                 <Button variant="outline" className="w-full" onClick={() => toast.info("Coming soon!")}>
+                    <Icons.Github className="h-4 w-4 mr-2" />
+                    Continue with GitHub
+                 </Button>
+                 <Button variant="secondary" className="w-full" onClick={fillDemoCredentials}>
+                    <TestTube className="h-4 w-4 mr-2" />
+                    Use Demo Account
+                 </Button>
+              </div>
+            </CardContent>
+          </div>
+        </Card>
+      </motion.div>
     </div>
-  )
+  );
 }

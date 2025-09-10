@@ -44,20 +44,13 @@ export function AboutPage() {
       description: "Jirania, West Tripura, Tripura 799046",
       color: "text-primary"
     },
-    {
-      icon: Icons.Clock,
-      title: "Office Hours",
-      info: "Mon - Fri: 9:00 AM - 6:00 PM",
-      description: "We're here to help during weekdays",
-      color: "text-accent"
-    }
   ]
 
   const socialLinks = [
     {
       platform: "LinkedIn",
-      url: "https://linkedin.com/company/dsai-nit-agartala",
-      handle: "@dsai-nit-agartala"
+      url: "https://www.linkedin.com/company/dsai-nita/",
+      handle: "@dsai-nita"
     },
     {
       platform: "GitHub",
@@ -66,14 +59,20 @@ export function AboutPage() {
     },
     {
       platform: "Instagram",
-      url: "https://instagram.com/dsai_nita",
+      url: "https://www.instagram.com/dsai_nita?utm_source=ig_web_button_share_sheet&igsh=ODdmZWVhMTFiMw==",
       handle: "@dsai_nita"
     },
     {
       platform: "WhatsApp",
-      url: "https://chat.whatsapp.com/IZtjxNyjq6L5d9dYudzo5K",
+      url: "https://chat.whatsapp.com/EJcQIjR5xCc4KrNYDNIKXp",
       handle: "Join our community"
-    }
+    },
+    {
+      platform: "Youtube",
+      url: "https://youtube.com/@datascienceaiclubnita?si=N__PDHswu8E8Dkww",
+      handle: "Join our community"
+    },
+
   ]
 
   const inquiryTypes = [
@@ -133,10 +132,10 @@ export function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="animate-fade-in">
               <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6">
-                ABOUT DSAI<span className="text-accent">.</span> CLUB
+                ABOUT <span className="text-accent">DSAI</span> CLUB
               </h1>
               <p className="text-lg text-muted-foreground mb-8">
-                Fostering innovation and excellence in the field of Data Science and Artificial Intelligence at NIT Agartala since January 2023.
+                Fostering innovation and excellence in the field of Data Science and Artificial Intelligence at NIT Agartala since January 2022.
               </p>
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
@@ -175,7 +174,7 @@ export function AboutPage() {
         <FloatingKeywords count={6} area="full" opacity={0.1} />
         <div className="container mx-auto px-6 relative z-10">
           <div className="text-center mb-16">
-            <p className="text-accent font-medium mb-4">Our Foundation</p>
+            <p className="text-accent text-2xl font-medium mb-4">Our Foundation</p>
             <h2 className="text-4xl font-bold gradient-text mb-4">Vision & Mission</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Guiding principles that drive our community forward.
@@ -209,17 +208,17 @@ export function AboutPage() {
       </section>
 
       {/* Our Journey */}
-      <section className="py-16">
+      <section className="py-6">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-accent font-medium mb-4">Our Story</p>
+            <p className="text-accent text-3xl font-medium mb-4">Our Story</p>
             <h2 className="text-4xl font-bold gradient-text mb-4">The DSAI Journey</h2>
             <p className="text-muted-foreground text-lg max-w-3xl mx-auto">
               From a small initiative to a thriving community of data science and AI enthusiasts.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <Card className="p-8 border-border/50 hover:border-accent/50 transition-all duration-300 hover:glow-accent animate-fade-in">
               <CardHeader>
                 <CardTitle className="text-xl font-bold mb-4">The Inception</CardTitle>
@@ -240,7 +239,19 @@ export function AboutPage() {
                 <p className="text-muted-foreground mb-4">
                   By 2024, the club had grown significantly, hosting workshops, hackathons, and research projects, attracting students eager to explore AI and machine learning.
                 </p>
-                <p className="text-muted-foreground/70">2023 - 2024</p>
+                <p className="text-muted-foreground/70">2023</p>
+              </CardContent>
+            </Card>
+
+            <Card className="p-8 border-border/50 hover:border-secondary/50 transition-all duration-300 hover:glow-cyan animate-fade-in animate-delay-200">
+              <CardHeader>
+                <CardTitle className="text-xl font-bold mb-4">Building Momentum</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground mb-4">
+                   the club had grown significantly, hosting workshops, hackathons, and research projects, attracting students eager to explore AI and machine learning.
+                </p>
+                <p className="text-muted-foreground/70">2024</p>
               </CardContent>
             </Card>
 
@@ -263,7 +274,7 @@ export function AboutPage() {
       <section className="py-16 bg-muted/30">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <p className="text-accent font-medium mb-4">Recognition</p>
+            <p className="text-accent text-3xl font-medium mb-4">Recognition</p>
             <h2 className="text-4xl font-bold gradient-text mb-4">Our Achievements</h2>
             <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
               Milestones and recognition that highlight our journey of excellence.
@@ -323,7 +334,7 @@ export function AboutPage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact-section" className="py-16">
+      <section id="contact-section" className="py-5">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold gradient-text mb-4">Get In Touch</h2>
@@ -333,7 +344,7 @@ export function AboutPage() {
           </div>
 
           {/* Contact Information */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
             {contactInfo.map((contact, index) => (
               <Card key={index} className="border-border/50 hover:border-accent/50 transition-all duration-300 hover:glow-accent text-center">
                 <CardHeader>
@@ -454,12 +465,12 @@ export function AboutPage() {
             </div>
 
             {/* Social Media Section */}
-            <div className="space-y-8">
+            <div className="space-y-4">
 
               {/* Social Media */}
               <Card className="border-border/50">
                 <CardHeader>
-                  <CardTitle>Connect With Us</CardTitle>
+                  <CardTitle className='text-2xl font-bold gradient-text mb-2'>Connect With Us</CardTitle>
                   <CardDescription>
                     Follow us on social media for updates and community discussions
                   </CardDescription>
