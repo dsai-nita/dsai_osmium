@@ -54,13 +54,14 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center absolute left-1/2 -translate-x-1/2">
+          <div className="hidden md:flex flex-1 justify-center items-center">
             <div className="flex items-center space-x-2">
               {mainNavItems.map((item) => (
                 <NavLink key={item.path} item={item} currentPath={currentPath} />
               ))}
             </div>
           </div>
+
           
           {/* --- NEW: Refactored Mobile Navigation Section --- */}
           <div className="md:hidden flex items-center space-x-1">
@@ -171,4 +172,5 @@ function AuthButton({ isLoggedIn, userData, isMobile = false }: Pick<NavigationP
       <Link to="/login">Login</Link>
     </Button>
   );
+
 }
