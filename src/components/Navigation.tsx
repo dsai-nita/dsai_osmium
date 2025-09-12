@@ -58,12 +58,16 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
             <span className="text-2xl font-bold gradient-text">DSAI</span>
           </Link>
 
-
+          {/* Desktop Navigation Links (Center) */}
+          <div className="hidden md:flex flex-1 justify-center items-center">
+            <div className="flex items-center space-x-1">
+              {desktopNavItems.map((item) => (
                 <NavLink key={item.path} item={item} currentPath={currentPath} />
               ))}
             </div>
           </div>
 
+          {/* Mobile Navigation */}
           <div className="md:hidden flex items-center space-x-1">
             {mobileVisibleItems.map(item => (
               <Link
@@ -190,5 +194,4 @@ function AuthButton({ isLoggedIn, userData, isMobile = false }: Pick<NavigationP
       <Link to="/login">Login</Link>
     </Button>
   );
-
 }
