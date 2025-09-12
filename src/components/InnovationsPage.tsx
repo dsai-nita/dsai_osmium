@@ -1,54 +1,87 @@
-import { useState } from 'react'
-import { Code, ExternalLink, Github, Filter, Search, Layers, Zap, Brain } from 'lucide-react'
-import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { Badge } from './ui/badge'
-import { Input } from './ui/input'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
-import { ImageWithFallback } from './dsai/ImageWithFallback'
-import projects from '../../assets/projectsData'
+import { useState } from "react";
+import {
+  Code,
+  ExternalLink,
+  Github,
+  Filter,
+  Search,
+  Layers,
+  Zap,
+  Brain,
+} from "lucide-react";
+import { Button } from "./ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
+import { Badge } from "./ui/badge";
+import { Input } from "./ui/input";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
+import { ImageWithFallback } from "./dsai/ImageWithFallback";
+import projects from "../../assets/projectsData";
 
 export function InnovationsPage() {
-  const [searchQuery, setSearchQuery] = useState('')
-  const [selectedCategory, setSelectedCategory] = useState('all')
-  const [selectedYear, setSelectedYear] = useState('all')
-  const [selectedTech, setSelectedTech] = useState('all')
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedYear, setSelectedYear] = useState("all");
+  const [selectedTech, setSelectedTech] = useState("all");
 
   // Extract unique values for filters
-  const categories = Array.from(new Set(projects.map(p => p.category)))
-  const years = Array.from(new Set(projects.map(p => p.year))).filter(Boolean)
-  const techStacks = Array.from(new Set(projects.flatMap(p => p.techStack || []))).filter(Boolean)
+  const categories = Array.from(new Set(projects.map((p) => p.category)));
+  const years = Array.from(new Set(projects.map((p) => p.year))).filter(
+    Boolean
+  );
+  const techStacks = Array.from(
+    new Set(projects.flatMap((p) => p.techStack || []))
+  ).filter(Boolean);
 
-  const filteredProjects = projects.filter(project => {
+  const filteredProjects = projects.filter((project) => {
     const matchesSearch =
-      searchQuery === '' ||
+      searchQuery === "" ||
       project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
       project.category.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      project.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (project.team && project.team.some(member => member.toLowerCase().includes(searchQuery.toLowerCase())))
+      project.tags.some((tag) =>
+        tag.toLowerCase().includes(searchQuery.toLowerCase())
+      ) ||
+      (project.team &&
+        project.team.some((member) =>
+          member.toLowerCase().includes(searchQuery.toLowerCase())
+        ));
 
     const matchesCategory =
-      selectedCategory === 'all' || project.category.toLowerCase() === selectedCategory.toLowerCase()
+      selectedCategory === "all" ||
+      project.category.toLowerCase() === selectedCategory.toLowerCase();
 
-    const matchesYear = selectedYear === 'all' || project.year?.toString() === selectedYear
-
+    const matchesYear =
+      selectedYear === "all" || project.year?.toString() === selectedYear;
 
     const matchesTech =
-      selectedTech === 'all' || (project.techStack && project.techStack.includes(selectedTech))
+      selectedTech === "all" ||
+      (project.techStack && project.techStack.includes(selectedTech));
 
-    return matchesSearch && matchesCategory && matchesYear && matchesTech
-  })
+    return matchesSearch && matchesCategory && matchesYear && matchesTech;
+  });
 
   const getCategoryIcon = (category: string) => {
-    if (category.includes('vision')) return Brain
-    if (category.includes('automation')) return Zap
-    if (category.includes('nlp') || category.includes('language')) return Layers
-    if (category.includes('machine-learning')) return Brain
-    return Code
-  }
+    if (category.includes("vision")) return Brain;
+    if (category.includes("automation")) return Zap;
+    if (category.includes("nlp") || category.includes("language"))
+      return Layers;
+    if (category.includes("machine-learning")) return Brain;
+    return Code;
+  };
 
-  const totalProjects = projects.length
+  const totalProjects = projects.length;
 
   return (
     <div className="min-h-screen pt-16">
@@ -57,13 +90,17 @@ export function InnovationsPage() {
         <div className="max-w-7xl mx-auto text-center">
           <h1 className="text-5xl font-bold gradient-text mb-4">Innovations</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto mb-8">
-            Explore our cutting-edge projects and research initiatives in AI, Machine Learning,
-            Robotics, and Data Science
+            Explore our cutting-edge projects and research initiatives in AI,
+            Machine Learning, Robotics, and Data Science
           </p>
           <div className="inline-flex items-center gap-2 bg-card border border-border rounded-lg px-4 py-2">
             <Code className="h-5 w-5 text-accent" />
-            <span className="text-sm text-muted-foreground">Total Projects:</span>
-            <span className="text-lg font-bold text-accent">{totalProjects}</span>
+            <span className="text-sm text-muted-foreground">
+              Total Projects:
+            </span>
+            <span className="text-lg font-bold text-accent">
+              {totalProjects}
+            </span>
           </div>
         </div>
       </section>
@@ -84,26 +121,28 @@ export function InnovationsPage() {
                 <Input
                   placeholder="Search projects, tech, or team..."
                   value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
+                  onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 bg-background"
                 />
               </div>
 
               {/* Category */}
-              <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+              <Select
+                value={selectedCategory}
+                onValueChange={setSelectedCategory}
+              >
                 <SelectTrigger className="w-full sm:w-40">
                   <SelectValue placeholder="Category" />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Categories</SelectItem>
-                  {categories.map(cat => (
+                  {categories.map((cat) => (
                     <SelectItem key={cat} value={cat}>
                       {cat}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-
 
               {/* Year */}
               <Select value={selectedYear} onValueChange={setSelectedYear}>
@@ -112,15 +151,13 @@ export function InnovationsPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Years</SelectItem>
-                  {years.map(yr => (
+                  {years.map((yr) => (
                     <SelectItem key={yr} value={yr.toString()}>
                       {yr}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
-
-
 
               {/* Tech Stack */}
               <Select value={selectedTech} onValueChange={setSelectedTech}>
@@ -129,7 +166,7 @@ export function InnovationsPage() {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">All Tech</SelectItem>
-                  {techStacks.map(tech => (
+                  {techStacks.map((tech) => (
                     <SelectItem key={tech} value={tech}>
                       {tech}
                     </SelectItem>
@@ -149,15 +186,20 @@ export function InnovationsPage() {
       <section className="py-12 px-4">
         <div className="max-w-7xl mx-auto">
           {filteredProjects.length === 0 ? (
+            
             <div className="text-center py-20">
               <Code className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-foreground mb-2">No projects found</h3>
-              <p className="text-muted-foreground">Try adjusting your filters or search criteria</p>
+              <h3 className="text-xl font-semibold text-foreground mb-2">
+                No projects found
+              </h3>
+              <p className="text-muted-foreground">
+                Try adjusting your filters or search criteria
+              </p>
             </div>
           ) : (
             <div className="grid md:grid-cols-3 lg:grid-cols-4 gap-8">
-              {filteredProjects.map(project => {
-                const CategoryIcon = getCategoryIcon(project.category)
+              {filteredProjects.map((project) => {
+                const CategoryIcon = getCategoryIcon(project.category);
                 return (
                   <Card
                     key={project.id}
@@ -190,14 +232,19 @@ export function InnovationsPage() {
                       </CardTitle>
                       {/* Description */}
                       <CardDescription className="mt-2">
-                        {project.description}
+                        {project.description.split(" ").slice(0, 20).join(" ") +
+                          (project.description.split(" ").length > 20
+                            ? "…"
+                            : "")}
                       </CardDescription>
                     </CardHeader>
                     <CardContent className="space-y-4 transition-all duration-500 group-hover:-translate-y-1">
                       {/* Tech Stack */}
                       {project.tags && (
                         <div>
-                          <div className="text-sm font-medium text-foreground mb-2">Tech Stack:</div>
+                          <div className="text-sm font-medium text-foreground mb-2">
+                            Tech Stack:
+                          </div>
                           <div className="flex flex-wrap gap-1">
                             {project.tags.map((tag, index) => (
                               <Badge
@@ -214,10 +261,13 @@ export function InnovationsPage() {
                       {/* Team */}
                       {project.team && (
                         <div>
-                          <div className="text-sm font-medium text-foreground mb-2">Team:</div>
+                          <div className="text-sm font-medium text-foreground mb-2">
+                            Team:
+                          </div>
                           <div className="text-sm text-muted-foreground">
-                            {project.team.slice(0, 2).join(', ')}
-                            {project.team.length > 2 && ` +${project.team.length - 2} more`}
+                            {project.team.slice(0, 2).join(", ")}
+                            {project.team.length > 2 &&
+                              ` +${project.team.length - 2} more`}
                           </div>
                         </div>
                       )}
@@ -229,7 +279,11 @@ export function InnovationsPage() {
                             asChild
                             className="flex-1 bg-gray-900 text-white hover:bg-gray-800 hover:shadow-lg transition-all"
                           >
-                            <a href={project.githubLink} target="_blank" rel="noopener noreferrer">
+                            <a
+                              href={project.githubLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <Github className="h-4 w-4 mr-2" /> Code
                             </a>
                           </Button>
@@ -240,7 +294,11 @@ export function InnovationsPage() {
                             asChild
                             className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90 hover:shadow-lg transition-all"
                           >
-                            <a href={project.demoLink} target="_blank" rel="noopener noreferrer">
+                            <a
+                              href={project.demoLink}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            >
                               <ExternalLink className="h-4 w-4 mr-2" /> Demo
                             </a>
                           </Button>
@@ -248,12 +306,12 @@ export function InnovationsPage() {
                       </div>
                     </CardContent>
                   </Card>
-                )
+                );
               })}
             </div>
           )}
         </div>
       </section>
     </div>
-  )
+  );
 }
