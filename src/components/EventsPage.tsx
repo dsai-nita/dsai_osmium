@@ -43,7 +43,7 @@ export function EventsPage() {
 
     const upcoming = allEvents.filter(e => e.status === 'upcoming').reverse();
     const past = allEvents.filter(e => e.status === 'completed');
-    
+
     const years = [...new Set(allEvents.map(e => e.year.toString()))];
     const types = [...new Set(allEvents.map(e => e.type))];
     const topics = [...new Set(allEvents.map(e => e.topic))];
@@ -79,7 +79,7 @@ export function EventsPage() {
   const handleFilterChange = (filterName: string, value: string) => {
     setFilters(prev => ({ ...prev, [filterName]: value }));
   };
-  
+
   const handleRegistration = (link: string) => window.open(link, '_blank');
 
   return (
@@ -96,13 +96,13 @@ export function EventsPage() {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="relative sm:col-span-2 lg:col-span-1">
-               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-               <Input
-                  placeholder="Search events..."
-                  value={filters.searchQuery}
-                  onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
-                  className="pl-10 bg-background"
-                />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Search events..."
+                value={filters.searchQuery}
+                onChange={(e) => handleFilterChange('searchQuery', e.target.value)}
+                className="pl-10 bg-background"
+              />
             </div>
             <FilterSelect
               value={filters.year}
@@ -168,14 +168,21 @@ function FeaturedEventSection({ event, currentTime, onRegister }) {
         </Badge>
         <h1 className="text-4xl md:text-6xl font-bold gradient-text mb-4">{event.title}</h1>
         <p className="text-lg text-muted-foreground max-w-3xl mx-auto mb-8">{event.description}</p>
-        
-        <Card className="relative overflow-hidden border-accent/20 bg-card/50 backdrop-blur-sm shadow-lg">
-          <div className="grid lg:grid-cols-2">
-            <div className="relative h-64 lg:h-auto overflow-hidden">
-              <ImageWithFallback src={event.image} alt={event.title} className="w-full h-full object-cover" />
+
+        <Card className=" overflow-hidden border-accent/20 bg-card/50 backdrop-blur-sm shadow-lg">
+          <div className="flex flex-col lg:flex-row">
+            {/* --- Image Section (First Tag) --- */}
+            <div className="relative h-64 lg:h-auto lg:w-1/2 flex-shrink-0">
+              <ImageWithFallback
+                src={event.image}
+                alt={event.title}
+                className="absolute inset-0 w-full h-full object-cover"
+              />
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
             </div>
-            <div className="p-8 flex flex-col justify-center text-left">
+
+            {/* --- Details Section (Second Tag) --- */}
+            <div className="p-8 flex flex-col justify-center">
               <EventDetails event={event} />
               {countdown ? (
                 <div className="my-6">
@@ -186,10 +193,10 @@ function FeaturedEventSection({ event, currentTime, onRegister }) {
                 <div className="my-6 text-center text-accent font-bold">Event is starting now!</div>
               )}
               {event.registrationLink && (
-                 <Button size="lg" onClick={() => onRegister(event.registrationLink)} className="glow-accent">
-                   <UserPlus className="h-5 w-5 mr-2" />
-                   Register Now
-                 </Button>
+                <Button size="lg" onClick={() => onRegister(event.registrationLink)} className="glow-accent">
+                  <UserPlus className="h-5 w-5 mr-2" />
+                  Register Now
+                </Button>
               )}
             </div>
           </div>

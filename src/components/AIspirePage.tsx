@@ -1,5 +1,4 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom' // Note: Link is still used for the "Contact Us" button
 import { Icons } from './Icons'
 import { Button } from './ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
@@ -7,7 +6,7 @@ import { Badge } from './ui/badge'
 import { ImageWithFallback } from './dsai/ImageWithFallback'
 
 export function AIspirePage() {
-  const [showRecruitmentForm, setShowRecruitmentForm] = useState(false)
+  const gformLink = "https://docs.google.com/forms/d/e/1FAIpQLSeZjrhRkVVg6RgrICjvh1cxzFTIlVlFqy-2LbNkpSadkQJIbw/viewform?usp=header"; // <--- REPLACE WITH YOUR GOOGLE FORM LINK
 
   const pastOrientations = [
     {
@@ -79,9 +78,11 @@ export function AIspirePage() {
             <p className="mb-4">Start your AI journey with us - Welcome freshers!</p>
             <Button
               className="bg-background text-foreground hover:bg-background/90 font-medium"
-              onClick={() => setShowRecruitmentForm(true)}
+              asChild
             >
-              Let's Connect
+              <a href={gformLink} target="_blank" rel="noopener noreferrer">
+                Let's Connect
+              </a>
             </Button>
           </div>
         </div>
@@ -267,9 +268,11 @@ export function AIspirePage() {
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground glow-accent"
-              onClick={() => setShowRecruitmentForm(true)}
+              asChild
             >
-              Register Now <Icons.ArrowRight className="ml-2 h-4 w-4" />
+              <a href={gformLink} target="_blank" rel="noopener noreferrer">
+                Register Now <Icons.ArrowRight className="ml-2 h-4 w-4" />
+              </a>
             </Button>
             <Button
               size="lg"
@@ -282,45 +285,6 @@ export function AIspirePage() {
           </div>
         </div>
       </section>
-
-      {/* Recruitment Form Modal Trigger */}
-      {showRecruitmentForm && (
-        <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-          <div className="bg-card border border-border rounded-xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <div className="flex justify-between items-center mb-6">
-                <h3 className="text-2xl font-bold gradient-text">
-                  Register for AIspire Orientation
-                </h3>
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={() => setShowRecruitmentForm(false)}
-                >
-                  <Icons.X className="h-4 w-4" />
-                </Button>
-              </div>
-
-              <p className="text-muted-foreground mb-6">
-                Fill out this form to register for the AIspire Orientation
-                Program. Join us for an exciting week of learning, networking,
-                and discovering your passion for AI!
-              </p>
-
-              <Button
-                className="w-full bg-accent hover:bg-accent/90 text-accent-foreground"
-                asChild
-                onClick={() => setShowRecruitmentForm(false)}
-              >
-                <Link to="/aispire-form">
-                  Continue to Registration Form{' '}
-                  <Icons.ArrowRight className="ml-2 h-4 w-4" />
-                </Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   )
 }

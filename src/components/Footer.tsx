@@ -88,8 +88,8 @@ export function Footer() {
             © {currentYear} DSAI Club. All rights reserved.
           </div>
           <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-            <span>Developed with</span>
-            <Heart className="h-4 w-4 text-red-500" />
+            <span>Developed with ❤️</span>
+            {/* <Heart className="h-4 w-4 text-red-500" /> */}
             <span>by the</span>
             <Link to="/developers" className="font-medium text-accent hover:text-accent/80 transition-colors">
               DSAI Tech Team
