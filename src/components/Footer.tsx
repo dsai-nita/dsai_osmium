@@ -41,10 +41,10 @@ export function Footer() {
   ];
 
   const socialLinks = [
-    { icon: Instagram, href: 'https://instagram.com/', label: 'Instagram' },
-    { icon: Linkedin, href: 'https://linkedin.com/company/', label: 'LinkedIn' },
+    { icon: Instagram, href: ' https://www.instagram.com/dsai_nita', label: 'Instagram' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/company/dsai-nita/', label: 'LinkedIn' },
     { icon: Github, href: 'https://github.com/dsai-nita', label: 'GitHub' },
-    { icon: Youtube, href: 'https://youtube.com/@dsaiclub', label: 'YouTube' }
+    { icon: Youtube, href: 'https://www.youtube.com/@datascienceaiclubnita', label: 'YouTube' }
   ];
 
   return (
@@ -118,7 +118,7 @@ const FooterInfo = ({ socialLinks }: { socialLinks: {icon: any, href: string, la
                 key={social.label}
                 href={social.href}
                 target="_blank"
-                rel="noopener noreferrer"
+              
                 className="w-9 h-9 bg-muted rounded-full flex items-center justify-center text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-all duration-200 hover:scale-110"
                 aria-label={social.label}
                 title={social.label}
@@ -161,7 +161,7 @@ const ContactInfo = () => (
             </div>
             <div className="flex items-center space-x-3">
                 <Phone className="h-4 w-4 text-accent flex-shrink-0" />
-                <span className="text-sm text-muted-foreground">+91 7294xxxxxx</span>
+                <span className="text-sm text-muted-foreground">+91 9079074745</span>
             </div>
             <div className="flex items-center space-x-3">
                 <Mail className="h-4 w-4 text-accent flex-shrink-0" />

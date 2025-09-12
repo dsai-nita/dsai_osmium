@@ -280,7 +280,7 @@ export function AIspirePage() {
               className="border-secondary text-secondary hover:bg-secondary/10"
               asChild
             >
-              <Link to="/contact">Contact Us</Link>
+              <Link to="/about">Contact Us</Link>
             </Button>
           </div>
         </div>

@@ -513,7 +513,7 @@ const members = {
     id: 35,
     name: "Abhay Pandey",
     branch: "Computer Science & Engineering",
-    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757609630/24UCS121_ABHAYPAN_-_24UCS121_ABHAY_Pandey_e03auf.jpg",
+    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757658157/24UCS121_ABHAYPAN_-_24UCS121_ABHAY_Pandey_qpgy5y.jpg",
     enrollment: "24UCS121",
     Position:"Core Member ",
     email: "pandeyabhay967@gmail.com",

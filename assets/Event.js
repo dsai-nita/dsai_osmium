@@ -12,7 +12,7 @@ const events = [
       attendees: 400,
       status: "completed",
       image: "https://images.unsplash.com/photo-1646579886135-068c73800308?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0ZWNoJTIwd29ya3Nob3AlMjBzZW1pbmFyfGVufDF8fHx8MTc1NjQ3MTEyMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      speaker: "Suman Dev",
+      speaker: "Dr. Apu Kr. Saha",
       resources: ["Presentation", "Code Samples", "Dataset"],
       registrationLink:""
     },
@@ -86,7 +86,7 @@ const events = [
     },
     {
       id: 6,
-      title: "The orientation session of DSAI-Club-AIspire 2.0, 2025",
+      title: "The orientation session of DSAI-Club-AIspire 2.0",
       description: "The aim of orientation aims to introduce students to the club's vision,objectives,and upcoming initiatives realated to Artificial Inteliigence and Machine Learning.",
       date: "2025-09-12",
       time: "16:00:00",
@@ -97,9 +97,9 @@ const events = [
       attendees: 400,
       status: "Upcoming",
       image: "https://images.unsplash.com/photo-1684610529682-553625a1ffed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtYWNoaW5lJTIwbGVhcm5pbmclMjBkYXRhJTIwdmlzdWFsaXphdGlvbnxlbnwxfHx8fDE3NTY0Njc3Njh8MA&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral",
-      speaker: "Suman Dev",
+      speaker: "Dr. Suman Deb",
       resources: ["Competition Results", "Winner Solutions", "Dataset"],
-      registrationLink:"sadsad"
+      registrationLink:"https://docs.google.com/forms/d/e/1FAIpQLSeZjrhRkVVg6RgrICjvh1cxzFTIlVlFqy-2LbNkpSadkQJIbw/viewform?usp=sharing&ouid=109740403661052641474"
     }
   ]
 export default events
