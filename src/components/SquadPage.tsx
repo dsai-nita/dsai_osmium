@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import { Crown, Star, User, Github, Linkedin, Mail, Filter, Search, Trophy, Calendar } from 'lucide-react'
+import { Crown, Star, User, Github, Linkedin, Mail, Search, Calendar } from 'lucide-react'
 import { Button } from './ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from './ui/card'
-import { Badge } from './ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card'
 import { Input } from './ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from './ui/select'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from './ui/tabs'
@@ -14,7 +13,6 @@ export function SquadPage() {
   const [selectedBranch, setSelectedBranch] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
 
-
   const getCurrentMembers = () => {
     return members[selectedYear as keyof typeof members] || []
   }
@@ -23,37 +21,34 @@ export function SquadPage() {
     const matchesBranch = selectedBranch === 'all' || 
       member.branch.toLowerCase().includes(selectedBranch.toLowerCase())
     
+    // Updated search to use 'Position' and remove fields not in data
     const matchesSearch = searchQuery === '' || 
       member.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      member.specialization.some(spec => 
-        spec.toLowerCase().includes(searchQuery.toLowerCase())
-      )
+      // Use optional chaining in case Position is missing for some members
+      member.Position?.toLowerCase().includes(searchQuery.toLowerCase())
     
     return matchesBranch && matchesSearch
   })
 
-  const getRoleIcon = (position: string) => {
-    switch (position) {
-      case 'executive':
+  // Updated role logic to handle actual data or default to User
+  const getRoleIcon = (position?: string) => {
+    switch (position?.toLowerCase()) {
+      case 'president':
         return Crown
-      case 'senior':
+      case 'general secretary':
         return Star
-      case 'alumni':
-        return Trophy
       default:
         return User
     }
   }
 
-  const getRoleColor = (position: string) => {
-    switch (position) {
-      case 'executive':
+  // Updated role color logic
+  const getRoleColor = (position?: string) => {
+    switch (position?.toLowerCase()) {
+      case 'president':
         return 'text-accent'
-      case 'senior':
+      case 'general secretary':
         return 'text-secondary'
-      case 'alumni':
-        return 'text-primary'
       default:
         return 'text-muted-foreground'
     }
@@ -71,7 +66,7 @@ export function SquadPage() {
         </div>
       </section>
 
-      {/* Year Selection Tabs */}
+      {/* Year Selection Tabs & Filters */}
       <section className="py-8 px-4 bg-muted/30 border-b border-border">
         <div className="max-w-7xl mx-auto">
           <Tabs value={selectedYear} onValueChange={setSelectedYear} className="w-full">
@@ -83,10 +78,8 @@ export function SquadPage() {
                 </TabsTrigger>
                 <TabsTrigger value="2024">2024</TabsTrigger>
                 <TabsTrigger value="2023">2023</TabsTrigger>
-                
               </TabsList>
 
-              {/* Filters */}
               <div className="flex flex-col sm:flex-row gap-4 w-full lg:w-auto">
                 <div className="relative flex-1 lg:w-80">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
@@ -98,25 +91,19 @@ export function SquadPage() {
                   />
                 </div>
                 
-
                 <Select value={selectedBranch} onValueChange={setSelectedBranch}>
                   <SelectTrigger className="w-full sm:w-48">
                     <SelectValue placeholder="Branch" />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="all">All Branches</SelectItem>
-                    <SelectItem value="computer science">Computer Science & Engineering</SelectItem>
-                    <SelectItem value="electronics communication">Electronics & Communication Engineering</SelectItem>
-                    <SelectItem value="electrical">Electrical Engineering</SelectItem>
-                    <SelectItem value="mathematics">Mathematics</SelectItem>
-                    <SelectItem value="electronics instrumentation">Electronics & Instrumentation Engineering</SelectItem>
-                    <SelectItem value="mechanical">Mechanical Engineering</SelectItem>
-                    <SelectItem value="civil">Civil Engineering</SelectItem>
-                    <SelectItem value="chemical">Chemical Engineering</SelectItem>
-                    <SelectItem value="production">Production Engineering</SelectItem>
-                    <SelectItem value="biotechnology">Biotechnology</SelectItem>
-                    <SelectItem value="physics">Physics</SelectItem>
-                    <SelectItem value="chemistry">Chemistry</SelectItem>
+                    {/* Add other branches as needed */}
+                    <SelectItem value="Computer Science & Engineering">Computer Science</SelectItem>
+                    <SelectItem value="Electronics and Communication">Electronics and Communication</SelectItem>
+                    <SelectItem value="Mathematics and Computing">Mathematics and Computing</SelectItem>
+                    <SelectItem value="Electronics and Communication">Electronics & Instrumentation</SelectItem>
+                    <SelectItem value="Electrical">Electrical </SelectItem>
+                    <SelectItem value="Civil">Civil</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -137,7 +124,7 @@ export function SquadPage() {
               ) : (
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {filteredMembers.map((member) => {
-                    const RoleIcon = getRoleIcon(member.position)
+                    const RoleIcon = getRoleIcon(member.Position)
                     return (
                       <Card key={member.id} className="group hover:border-accent/50 transition-all duration-300 hover:glow-accent overflow-hidden">
                         <div className="relative">
@@ -150,16 +137,9 @@ export function SquadPage() {
                           </div>
                           <div className="absolute top-4 right-4">
                             <div className="bg-background/80 backdrop-blur-sm rounded-full p-2">
-                              <RoleIcon className={`h-4 w-4 ${getRoleColor(member.position)}`} />
+                              <RoleIcon className={`h-4 w-4 ${getRoleColor(member.Position)}`} />
                             </div>
                           </div>
-                          {member.position === 'alumni' && member.currentPosition && (
-                            <div className="absolute bottom-4 left-4 right-4">
-                              <Badge className="bg-primary text-primary-foreground text-xs">
-                                {member.currentPosition}
-                              </Badge>
-                            </div>
-                          )}
                         </div>
                         
                         <CardHeader>
@@ -167,61 +147,30 @@ export function SquadPage() {
                             {member.name}
                           </CardTitle>
                           <div className="space-y-1 text-muted-foreground">
-                            <div className="font-medium text-foreground">{member.role}</div>
-                            <div className="text-sm">{member.year} • {member.branch}</div>
-                            <div className="text-sm text-muted-foreground">
-                              Joined {member.joinedYear}
-                            </div>
+                            {member.Position && <div className="font-medium text-foreground">{member.Position}</div>}
+                            <div className="text-sm">{member.branch}</div>
                           </div>
                         </CardHeader>
                         
                         <CardContent className="space-y-4">
-                          <p className="text-sm text-muted-foreground line-clamp-2">
-                            {member.bio}
-                          </p>
-                          
-                          <div>
-                            <div className="text-sm font-medium text-foreground mb-2">Specialization:</div>
-                            <div className="flex flex-wrap gap-1">
-                              {member.specialization.slice(0, 2).map((spec, index) => (
-                                <Badge key={index} variant="outline" className="text-xs">
-                                  {spec}
-                                </Badge>
-                              ))}
-                              {member.specialization.length > 2 && (
-                                <Badge variant="outline" className="text-xs">
-                                  +{member.specialization.length - 2}
-                                </Badge>
-                              )}
-                            </div>
-                          </div>
-                          
-                          <div>
-                            <div className="text-sm font-medium text-foreground mb-2">Key Achievements:</div>
-                            <ul className="text-xs text-muted-foreground space-y-1">
-                              {member.achievements.slice(0, 2).map((achievement, index) => (
-                                <li key={index} className="flex items-start gap-1">
-                                  <span className="text-accent mt-1">•</span>
-                                  <span>{achievement}</span>
-                                </li>
-                              ))}
-                            </ul>
-                          </div>
+                          {member.bio && <p className="text-sm text-muted-foreground line-clamp-2">{member.bio}</p>}
                           
                           <div className="flex gap-2 pt-4 border-t border-border">
-                            {member.social.github && (
-                              <Button size="sm" variant="outline" className="p-2">
-                                <Github className="h-4 w-4" />
+                            {/* FIX: Use optional chaining (?.) in case 'social' is undefined */}
+                            {member.social?.github && (
+                              <Button asChild size="sm" variant="outline" className="p-2">
+                                <a href={member.social.github} target="_blank" rel="noopener noreferrer"><Github className="h-4 w-4" /></a>
                               </Button>
                             )}
-                            {member.social.linkedin && (
-                              <Button size="sm" variant="outline" className="p-2">
-                                <Linkedin className="h-4 w-4" />
+                            {/* FIX: Corrected to 'Linkedln' and used optional chaining */}
+                            {member.social?.Linkedln && (
+                              <Button asChild size="sm" variant="outline" className="p-2">
+                                <a href={member.social.Linkedln} target="_blank" rel="noopener noreferrer"><Linkedin className="h-4 w-4" /></a>
                               </Button>
                             )}
-                            {member.social.email && (
-                              <Button size="sm" variant="outline" className="p-2">
-                                <Mail className="h-4 w-4" />
+                            {member.social?.email && (
+                              <Button asChild size="sm" variant="outline" className="p-2">
+                                <a href={`mailto:${member.social.email}`}><Mail className="h-4 w-4" /></a>
                               </Button>
                             )}
                             <Button size="sm" className="flex-1 bg-accent text-accent-foreground hover:bg-accent/90">

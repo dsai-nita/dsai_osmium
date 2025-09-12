@@ -1,18 +1,18 @@
 const projects = [
-    {
-      id: 9,
-      title: "Crop Yield Prediction",
-      description: "A machine learning model that predicts crop yields based on environmental conditions, soil health, and historical data. The model helps farmers optimize their agricultural strategies for better productivity.",
-      imageSrc: "https://images.pexels.com/photos/539856/pexels-photo-539856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-      tags: ["Machine Learning", "Agriculture", "Data Science", "Python"],
-      techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
-      category: "machine-learning",
-      year: "2024",
-      team: ["Yogesh",],
-      githubLink: "https://github.com/yogeshsingh360/crop_yield",
-      demoLink: "https://crop-yield-predict.onrender.com/"
-    },
-    {
+  {
+   id: 9,
+   title: "Placement Predictor",
+   description: "Developed a Placement Predictor model using machine learning that predicts students’ placement chances based on academic performance, technical skills, and extracurricular data. Implemented preprocessing, trained models (Logistic Regression, Decision Tree, Random Forest), and achieved high accuracy with Random Forest.",
+   imageSrc: "https://images.pexels.com/photos/8728105/pexels-photo-8728105.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+   tags: ["Random Forest", "Creative Coding",'Data Analysics'],
+   category: "Predict Future",
+   year: "2025",
+   techStack:["Machine Learning", "Data Science", "Python"],
+   team: ["Anand Singh"],
+   githubLink: "https://github.com/reddyeswaranush/dengue-ml-model",
+   demoLink: "https://example.com/particle-flocking-demo"
+  },
+  {
     id: 0,
     title: "Face Recognition",
     description: "A facial recognition system that detects and analyzes live facial recordings to determine a person's mood based on expressions and gestures. It can be used for sentiment analysis, security authentication, and personalized user experiences.",
@@ -26,6 +26,45 @@ const projects = [
     demoLink: "https://example.com/face-recognition-demo"
   },
   {
+      id: 9,
+      title: "Crop Yield Prediction",
+      description: "A machine learning model that predicts crop yields based on environmental conditions, soil health, and historical data. The model helps farmers optimize their agricultural strategies for better productivity.",
+      imageSrc: "https://images.pexels.com/photos/539856/pexels-photo-539856.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      tags: ["Machine Learning", "Agriculture", "Data Science", "Python"],
+      techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+      category: "machine-learning",
+      year: "2024",
+      team: ["Yogesh",],
+      githubLink: "https://github.com/yogeshsingh360/crop_yield",
+      demoLink: "https://crop-yield-predict.onrender.com/"
+    },
+    {
+      id: 2,
+      title: "Next Word Predictor using LSTM",
+      description: "An AI-based text prediction system that uses an LSTM (Long Short-Term Memory) neural network to predict the next word in a given sentence. It is trained on large text datasets to improve accuracy and contextual understanding.",
+      imageSrc: "https://images.pexels.com/photos/6964149/pexels-photo-6964149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+      tags: ["Deep Learning", "LSTM", "Natural Language Processing", "AI"],
+      category: "natural-language-processing",
+      techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+      year: "2024",
+      team: ["Shubham", "Divyansh"],
+      githubLink: "https://github.com/D-i-vyansh/next-word/tree/main/next_word",
+      demoLink: ""
+    },
+    {
+    id: 4,
+    title: "Facial Cursor Control",
+    description: "A vision-based cursor control system that allows users to navigate their computer screen using eye movements. It utilizes iris tracking and facial gesture detection to provide a hands-free interaction experience.",
+    imageSrc: "https://images.pexels.com/photos/5474035/pexels-photo-5474035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["AI", "Gesture Control", "Computer Vision", "Accessibility"],
+    category: "human-computer-interaction",
+    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
+    year: "2024",
+    team: ["Shubham", "Divyansh"],
+    githubLink: "https://github.com/example/facial-cursor-control",
+    demoLink: "https://example.com/facial-cursor-control-demo"
+  },
+    {
     id: 1,
     title: "Book Recommender",
     description: "An AI-powered book recommendation system that suggests books based on user preferences, reading history, and genre interests. It utilizes machine learning and collaborative filtering to provide personalized book recommendations.",
@@ -37,19 +76,6 @@ const projects = [
     team: ["Shubham", "Divyansh"],
     githubLink: "https://github.com/example/book-recommender",
     demoLink: "https://example.com/book-recommender-demo"
-  },
-  {
-    id: 2,
-    title: "Next Word Predictor using LSTM",
-    description: "An AI-based text prediction system that uses an LSTM (Long Short-Term Memory) neural network to predict the next word in a given sentence. It is trained on large text datasets to improve accuracy and contextual understanding.",
-    imageSrc: "https://images.pexels.com/photos/6964149/pexels-photo-6964149.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["Deep Learning", "LSTM", "Natural Language Processing", "AI"],
-    category: "natural-language-processing",
-    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
-    year: "2024",
-    team: ["Shubham", "Divyansh"],
-    githubLink: "https://github.com/D-i-vyansh/next-word/tree/main/next_word",
-    demoLink: ""
   },
 
   {
@@ -65,19 +91,7 @@ const projects = [
     githubLink: "https://github.com/example/sky-saving-pro",
     demoLink: "https://example.com/sky-saving-pro-demo"
   },
-  {
-    id: 4,
-    title: "Facial Cursor Control",
-    description: "A vision-based cursor control system that allows users to navigate their computer screen using eye movements. It utilizes iris tracking and facial gesture detection to provide a hands-free interaction experience.",
-    imageSrc: "https://images.pexels.com/photos/5474035/pexels-photo-5474035.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
-    tags: ["AI", "Gesture Control", "Computer Vision", "Accessibility"],
-    category: "human-computer-interaction",
-    techStack:["Machine Learning", "Agriculture", "Data Science", "Python"],
-    year: "2024",
-    team: ["Shubham", "Divyansh"],
-    githubLink: "https://github.com/example/facial-cursor-control",
-    demoLink: "https://example.com/facial-cursor-control-demo"
-  },
+  
   {
     id: 5,
     title: "Article Summarizer and Sentiment Analysis",
@@ -130,7 +144,19 @@ const projects = [
     githubLink: "https://github.com/example/particle-flocking",
     demoLink: "https://example.com/particle-flocking-demo"
   },
+  {
+    id: 9,
+    title: "Dengue Prediction Model",
+    description: "An ML model that prdicts the nos of cases which may appear on a particular day by taking many factors into consideration like x-factors",
+    imageSrc: "https://images.pexels.com/photos/8728105/pexels-photo-8728105.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+    tags: ["Random Forest", "Creative Coding",'Data Analysics'],
+    category: "Predict Future",
+    year: "2025",
+    techStack:["Machine Learning", "Data Science", "Python"],
+    team: ["Reddy Eswar Anush"],
+    githubLink: "https://github.com/reddyeswaranush/dengue-ml-model",
+    demoLink: "https://example.com/particle-flocking-demo"
+  },
+  
 ]
 export default projects
-
-

@@ -36,17 +36,14 @@ const coreTeam: Developer[] = [
     name: 'Shubham sebrin',
     role: 'Project Lead & Full Stack Developer',
     description: 'Leading the DSAI website development with expertise in React, TypeScript, and modern web technologies. Passionate about creating intuitive user experiences.',
-    avatar: '/api/placeholder/150/150',
+    avatar: 'https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757649497/shubham_ccztrz.jpg',
     skills: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express.js'],
-    github: 'https://github.com/sebrin',
-    linkedin: 'https://linkedin.com/in/sebrin',
-    email: 'sebrin@dsai.club',
+    github: 'https://github.com/shubhkr72',
+    linkedin: 'https://linkedin.com/in/shubham-sebrin',
+    email: 'shubhkr1320@gmail.com',
     contributions: [
       'Project architecture and initial setup',
       'Navigation and routing system',
-      'Homepage with animated hero section',
-      'Squad page with team hierarchy',
-      'Footer design and implementation',
       'Theme system and dark mode'
     ],
     joinDate: '2024-01',
@@ -57,18 +54,15 @@ const coreTeam: Developer[] = [
     name: 'Abhay Pandey',
     role: 'Full Stack Developer',
     description: 'Leading the DSAI website development with expertise in React, TypeScript, and modern web technologies. Passionate about creating intuitive user experiences.',
-    avatar: '/api/placeholder/150/150',
+    avatar: 'https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757609630/24UCS121_ABHAYPAN_-_24UCS121_ABHAY_Pandey_e03auf.jpg',
     skills: ['React', 'TypeScript', 'Node.js', 'MongoDB', 'Tailwind CSS', 'Express.js'],
     github: 'https://github.com/sebrin',
     linkedin: 'https://linkedin.com/in/sebrin',
     email: 'sebrin@dsai.club',
     contributions: [
-      'Project architecture and initial setup',
-      'Navigation and routing system',
       'Homepage with animated hero section',
-      'Squad page with team hierarchy',
+      'Data collection from various sources',
       'Footer design and implementation',
-      'Theme system and dark mode'
     ],
     joinDate: '2024-01',
     status: 'Core'
@@ -77,23 +71,7 @@ const coreTeam: Developer[] = [
 ]
 
 const contributors: Developer[] = [
-  {
-    id: 'samir',
-    name: 'Samir',
-    role: 'Content Developer & QA',
-    description: 'Contributing to content creation, quiz development, and quality assurance testing.',
-    avatar: '/api/placeholder/150/150',
-    skills: ['Content Writing', 'Testing', 'Documentation', 'JavaScript', 'Python'],
-    github: 'https://github.com/samir',
-    contributions: [
-      'FAQ content development',
-      'Quiz questions and explanations',
-      'User acceptance testing',
-      'Documentation writing'
-    ],
-    joinDate: '2024-03',
-    status: 'Active'
-  },
+  
   
 ]
 
@@ -287,7 +265,7 @@ export function DevelopersPage() {
                 <Coffee className="h-6 w-6 text-primary" />
               </div>
               <h3 className="font-medium text-card-foreground mb-2">Commits</h3>
-              <p className="text-2xl font-bold gradient-text">500+</p>
+              <p className="text-2xl font-bold gradient-text">100+</p>
             </div>
           </motion.div>
         </div>

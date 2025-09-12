@@ -12,7 +12,7 @@ export function FoundersPage() {
     role: "Founding President",
     year: "2023",
     branch: "Computational Mathematics",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757650106/divyansh_lbmoyw.jpg",
     bio: "Passionate about AI research and machine learning applications. Led the founding team to establish DSAI Club as a premier tech community at NIT Agartala.",
     achievements: [
       "Founded DSAI Club in January 2023",
@@ -41,7 +41,7 @@ export function FoundersPage() {
     role: "Founding President",
     year: "2023-24",
     branch: "Computational Mathematics",
-    image: "https://drive.google.com/file/d/1fQDM_7A_wnp3n5u4U-LnZVSFf9lI8vhL/view?usp=drivesdk",
+    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757650293/diptanu_yzkawe.jpg",
     bio: "Transforming data into insights with AI and machine learning. Passionate about leveraging technology to drive innovation and growth.",
     achievements: [
       "Founded DSAI Club (Jan 2024)",
@@ -96,7 +96,7 @@ export function FoundersPage() {
     role: "Trainee Software Engineer (Java Backend) at Global Logic",
     year: "2025",
     branch: "Computer Science and Engineering",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop&crop=face",
+    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757650416/HARSH_dt1qkz.jpg",
     bio: "Aspiring backend developer passionate about building scalable systems and AI applications. Skilled in Java, Spring Boot, and full-stack development.",
     achievements: [
       "LeetCode Knight (Top 4.5%) with 450+ solved problems",

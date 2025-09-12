@@ -155,7 +155,7 @@ export function Homepage() {
           <div className="text-center mt-16">
             <p className="text-muted-foreground mb-2">Are you an organization looking to collaborate?</p>
             <Button size="lg" className="bg-gradient-to-r from-primary to-accent text-accent-foreground py-4 px-8 text-lg font-semibold rounded-xl shadow-lg ring-2 ring-accent/30 transition-all duration-300 group hover:scale-105 hover:shadow-2xl hover:from-accent hover:to-primary" asChild>
-              <a href="mailto:officialdatascienceaiclub.nita@gmail.com" className="flex items-center justify-center gap-3">
+              <a href="https://mail.google.com/mail/?view=cm&fs=1&to=officialdatascienceaiclub.nita@gmail.com&su=Hello&body=I%20want%20to%20connect" target='_blank' className="flex items-center justify-center gap-3">
                 Reach Out
                 <Icons.Mail className="inline-block h-6 w-6 transition-transform duration-500 group-hover:scale-125 group-hover:rotate-[20deg]" />
               </a>
