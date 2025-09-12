@@ -176,3 +176,4 @@ export function GalleryPage() {
 }
 
 export default GalleryPage;
+

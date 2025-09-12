@@ -3,7 +3,7 @@ import { Search, ChevronDown, MessageCircle, Users, Code, BookOpen, Calendar, Aw
 import { Input } from './ui/input'
 import { Badge } from './ui/badge'
 import { motion, AnimatePresence } from 'motion/react'
-import faqData from '../../assets/FAQ'
+import faqData from '../../assets/Faq'
 
 interface FAQ {
   id: number
@@ -232,4 +232,5 @@ export function FAQPage() {
       </section>
     </div>
   )
+
 }
