@@ -3,9 +3,8 @@ import { Link, useLocation } from 'react-router-dom';
 import { Button } from './ui/button';
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet';
 import { motion } from 'framer-motion';
-import { Home, Calendar, Lightbulb, Users, Sparkles, ClipboardList, BookOpen, Image, Info, Menu, Sun, Moon, User,Zap } from 'lucide-react';
-
-// --- PROPS & DATA ---
+import {useAuth} from '../Context/AuthContext'
+import { Home, Calendar, Lightbulb, Users, Sparkles, ClipboardList, BookOpen, Image, Info, Menu, Sun, Moon, User,Zap } from './LucidIcon';
 
 interface NavigationProps {
   isDarkMode: boolean;
@@ -20,7 +19,7 @@ const allNavItems = [
   { path: '/innovations', label: 'Innovations', icon: Lightbulb },
   { path: '/squad', label: 'Squad', icon: Users },
   { path: '/aispire', label: 'AIspire', icon: Sparkles },
-  { path: '/quiz', label: 'Quiz & Polls', icon: ClipboardList },
+  { path: '/quiz', label: 'Quiz', icon: ClipboardList },
   { path: '/blog', label: 'Blog', icon: BookOpen },
   { path: '/gallery', label: 'Gallery', icon: Image },
   { path: '/developers', label: 'Developers', icon: Zap },
@@ -43,7 +42,8 @@ const mobileMenuItems = allNavItems.filter(item => !mobileVisiblePaths.includes(
 
 // --- MAIN COMPONENT ---
 
-export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: NavigationProps) {
+export function Navigation({  }: NavigationProps) {
+  const {isDarkMode, toggleTheme, isLoggedIn, userData}=useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const currentPath = location.pathname;
@@ -78,9 +78,9 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
                 {item.label}
               </Link>
             ))}
-            <ThemeToggleButton isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
+            <ThemeToggleButton isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />
             {/* Mobile Menu Sheet */}
-            <Sheet>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Open menu">
                   <Menu className="h-6 w-6" />
@@ -98,6 +98,7 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
                     <Link
                       key={item.path}
                       to={item.path}
+                      onClick={() => setIsMenuOpen(false)}
                       className={`flex items-center gap-4 px-4 py-3 text-base font-medium rounded-lg transition-colors ${currentPath === item.path ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'}`}
                     >
                       <item.icon className="h-5 w-5" />
@@ -105,7 +106,7 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
                     </Link>
                   ))}
                 </div>
-                <div className="p-4 border-t border-border mt-auto">
+                <div className="p-4 border-t border-border">
                   <AuthButton isLoggedIn={isLoggedIn} userData={userData} isMobile />
                 </div>
               </SheetContent>
@@ -114,9 +115,9 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
 
           {/* Desktop Right Section */}
           <div className="hidden md:flex items-center space-x-2">
-            <ThemeToggleButton isDarkMode={isDarkMode} onToggleTheme={onToggleTheme} />
+            <ThemeToggleButton isDarkMode={isDarkMode} onToggleTheme={toggleTheme} />
             {/* Desktop Menu Sheet */}
-            <Sheet>
+            <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
               <SheetTrigger asChild>
                 <Button variant="ghost" size="icon" aria-label="Open menu">
                   <Menu className="h-6 w-6" />
@@ -126,7 +127,7 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
                 <div className="p-4 border-b border-border">
                   <Link to="/" className="flex items-center space-x-3">
                     <img src="/logo.png" alt="DSAI Logo" className="h-8 w-8 object-contain" />
-                    <span className="text-xl font-bold gradient-text">More Options</span>
+                    <span className="text-xl font-bold gradient-text">DSAI Club</span>
                   </Link>
                 </div>
                 <div className="flex-1 overflow-y-auto p-4 space-y-2">
@@ -134,6 +135,7 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
                     <Link
                       key={item.path}
                       to={item.path}
+                      onClick={() => setIsMenuOpen(false)}
                       className={`flex items-center gap-4 px-4 py-3 text-base font-medium rounded-lg transition-colors ${currentPath === item.path ? 'text-accent bg-accent/10' : 'text-foreground hover:bg-muted'}`}
                     >
                       <item.icon className="h-5 w-5" />
@@ -141,7 +143,7 @@ export function Navigation({ isDarkMode, onToggleTheme, isLoggedIn, userData }: 
                     </Link>
                   ))}
                 </div>
-                <div className="p-4 border-t border-border mt-auto">
+                <div className="p-4 border-t border-border">
                   <AuthButton isLoggedIn={isLoggedIn} userData={userData} isMobile />
                 </div>
               </SheetContent>

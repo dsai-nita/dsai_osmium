@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react'
 import { motion, useInView } from 'motion/react'
+import React from 'react'
 import { useRef } from 'react'
-
+import {BookAIcon, BookOpen, LucideIcon,Users, Video, Calendar} from 'lucide-react'
 interface StatItem {
   id: string
   label: string
   value: number
   suffix: string
-  icon: string
+  icon: LucideIcon
   color: string
   description: string
   keywords: string[]
 }
+
 
 const statsData: StatItem[] = [
   {
@@ -19,7 +21,7 @@ const statsData: StatItem[] = [
     label: 'AI Projects',
     value: 20,
     suffix: '+',
-    icon: '🤖',
+    icon: BookOpen, // represents learning/projects
     color: 'from-primary to-secondary',
     description: 'Machine Learning Projects Completed',
     keywords: ['TensorFlow', 'PyTorch', 'Deep Learning', 'Neural Networks']
@@ -29,7 +31,7 @@ const statsData: StatItem[] = [
     label: 'Active Members',
     value: 50,
     suffix: '+',
-    icon: '👥',
+    icon: Users, // represents community/members
     color: 'from-secondary to-accent',
     description: 'Data Scientists and AI Enthusiasts',
     keywords: ['Data Science', 'AI Research', 'ML Engineers', 'Students']
@@ -39,7 +41,7 @@ const statsData: StatItem[] = [
     label: 'Workshops Conducted',
     value: 10,
     suffix: '+',
-    icon: '🎓',
+    icon: Video, // represents sessions/workshops
     color: 'from-accent to-primary',
     description: 'Learning Sessions & Technical Talks',
     keywords: ['Computer Vision', 'NLP', 'Reinforcement Learning', 'MLOps']
@@ -49,12 +51,13 @@ const statsData: StatItem[] = [
     label: 'Events',
     value: 8,
     suffix: '+',
-    icon: '🎉',
+    icon: Calendar, // represents scheduled events
     color: 'from-accent to-primary',
     description: 'Learning Sessions & Technical Talks',
     keywords: ['Computer Vision', 'NLP', 'Reinforcement Learning', 'MLOps']
   },
 ]
+
 
 export function AnimatedStats() {
   const [counters, setCounters] = useState<Record<string, number>>({})
@@ -175,7 +178,7 @@ export function AnimatedStats() {
                       ease: "easeInOut"
                     }}
                   >
-                    {stat.icon}
+                    {React.createElement(stat.icon, { className: `w-10 h-10` })}
                   </motion.div>
 
                   {/* Counter with glow effect */}
