@@ -132,7 +132,7 @@ export function SquadPage() {
                             <ImageWithFallback
                               src={member.image}
                               alt={member.name}
-                              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                              className="w-100 h-90 object-cover group-hover:scale-110 transition-transform duration-300"
                             />
                           </div>
                           <div className="absolute top-4 right-4">

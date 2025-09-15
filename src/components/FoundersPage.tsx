@@ -68,7 +68,7 @@ export function FoundersPage() {
     role: "Founder of DSAI Club",
     year: "2023",
     branch: "Computational Mathematics",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop&crop=face",
+    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757661377/abhishek_mc6b2y.jpg",
     bio: "Passionate in areas of including data science, machine learning, deep learning, generative AI, and large language models.",
     achievements: [
       "Founded DSAI Club (Jan 2024)",
@@ -124,7 +124,7 @@ export function FoundersPage() {
     role: "Founder of DSAI Club",
     year: "2023",
     branch: "Computational Mathematics",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&fit=crop&crop=face",
+    image: "https://res.cloudinary.com/dhpmzdrnp/image/upload/v1757661376/punit_mndplu.jpg",
     bio: "Passionate about software development having deep interest about Machine Learning and Artificial Intelligence",
     achievements: [
       "Founded DSAI Club (Jan 2024)",

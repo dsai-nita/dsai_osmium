@@ -1,9 +1,8 @@
 import { useState, useEffect, useRef } from 'react';
 import { Icons } from './Icons';
 import { Button } from './ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Card } from './ui/card';
 import { Input } from './ui/input';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { motion, AnimatePresence } from 'framer-motion';
 
 // --- DATA & CONFIGURATION ---
@@ -21,18 +20,107 @@ interface QuickReply {
 }
 
 const quickReplies: QuickReply[] = [
-  { id: '1', text: 'What is DSAI?', response: 'DSAI (Data Science and Artificial Intelligence) is a student club focused on exploring cutting-edge technologies in AI, machine learning, robotics, and data science. We organize workshops, build innovative projects, and foster a community of tech enthusiasts!' },
-  { id: '2', text: 'How can I join?', response: 'You can join DSAI by participating in our AIspire recruitment program. We welcome students from all backgrounds who are passionate about AI. Keep an eye on our Events page for upcoming recruitment drives!' },
-  { id: '3', text: 'What projects are you working on?', response: 'Our members work on diverse projects including AI chatbots, autonomous robots, predictive analytics dashboards, and computer vision applications. Check out our Innovations page to explore our project portfolio!' },
+  {
+    id: '1',
+    text: 'What is DSAI?',
+    response:
+      'DSAI (Data Science and Artificial Intelligence) is a student club focused on exploring cutting-edge technologies in AI, machine learning, robotics, and data science. We organize workshops, build innovative projects, and foster a community of tech enthusiasts!'
+  },
+  {
+    id: '2',
+    text: 'How to join DSAI?',
+    response:
+      'You can join DSAI by visiting our AIspire recruitment program page and filling out the application form. We welcome students from all backgrounds who are passionate about AI and technology. Check out our Events page for upcoming recruitment drives!'
+  },
+  {
+    id: '3',
+    text: 'Upcoming events?',
+    response:
+      'We regularly organize workshops, seminars, hackathons, and tech talks. Visit our Events page to see upcoming events with countdown timers and registration links. You can also join our newsletter to stay updated!'
+  },
+  {
+    id: '4',
+    text: 'What projects do you work on?',
+    response:
+      'Our members work on diverse projects including AI chatbots, autonomous robots, predictive analytics dashboards, computer vision applications, and IoT systems. Check out our Innovations page to explore our project portfolio!'
+  },
+  {
+    id: '5',
+    text: 'Meeting schedule?',
+    response:
+      'We have regular meetings, workshops, and study sessions. The schedule is flexible and announced in advance through our communication channels.'
+  },
+  {
+    id: '6',
+    text: 'Why join DSAI?',
+    response:
+      'To get hands-on experience in Python, Machine Learning, AI tools, and Data Science basics. And build a portfolio you can showcase on your resume and LinkedIn '
+  },
+  {
+    id: '7',
+    text: 'Can I propose my own project idea?',
+    response:
+      'Yes, we encourage members to bring their own ideas! Our seniors will guide you and form teams if needed.'
+  },
+  {
+    id: '8',
+    text: 'mentorship for beginners?',
+    response:
+      'Definitely! Seniors and alumni mentor juniors through project guidance, seminars and interective sessions.'
+  },
+  {
+    id: '9',
+    text: 'benefits for collaborators and sponsors?',
+    response:
+      'Visibility across campus and social media, ccess to talented students, and opportunities for long-term partnerships.'
+  },
+  {
+    id: '10',
+    text: 'guidance for higher studies?',
+    response:
+      'Yes — seniors and alumni share their experiences with MS/PhD prep, research internships, and applications overseas .'
+  },
+  {
+    id: '11',
+    text: 'How much time I need to commit in the club?',
+    response:
+      'Generally 3 to 4 hours per week is expected minimum from all members . But it is flexible based on your involvement level or during any event'
+  },
+  {
+    id: '12',
+    text: 'Is there a fee to join?',
+    response: 'No, there is no membership fee required to join DSAI Club.'
+  },
+  {
+    id: '13',
+    text: 'Do I need to be from CSE/AI branch?',
+    response: 'No, students from all departments are welcome.'
+  },
+  {
+    id: '14',
+    text: 'What project topics do you focus on?',
+    response: 'AI chatbots, recommendation systems, healthcare AI, Automation and so more'
+  },
+  {
+    id: '15',
+    text: 'Where can I get updates?',
+    response: 'Follow our Instagram, LinkedIn, and join our DSAI community.'
+  }
 ];
 
 const botResponses: { [key: string]: string } = {
-  greeting: "Hi there! I'm the DSAI Assistant. I can help you learn about our club, events, projects, and how to get involved. What would you like to know?",
-  default: "I'm here to help you with information about DSAI! You can ask me about our club activities, upcoming events, projects, or how to join.",
-  goodbye: "Thanks for chatting! Feel free to reach out anytime if you have more questions about DSAI.",
-  projects: "We work on exciting projects in AI, ML, and robotics! Visit our Innovations page to see detailed project information, or ask me about specific areas like 'computer vision projects' or 'robotics projects'.",
-  events: "We organize workshops, seminars, and hackathons regularly. Check our Events page for upcoming activities with live countdowns and registration links!",
-  contact: "You can reach us at officialdatascienceaiclub.nita@gmail.com for collaborations. We're also active on our social media channels!"
+  greeting:
+    "Hi there! I'm the DSAI Assistant. I can help you learn about our club, events, projects, and how to get involved. What would you like to know?",
+  default:
+    "I'm here to help you with information about DSAI! You can ask me about our club activities, upcoming events, projects, or how to join.",
+  goodbye:
+    'Thanks for chatting! Feel free to reach out anytime if you have more questions about DSAI.',
+  projects:
+    "We work on exciting projects in AI, ML, and robotics! Visit our Innovations page to see detailed project information, or ask me about specific areas like 'computer vision projects' or 'robotics projects'.",
+  events:
+    'We organize workshops, seminars, and hackathons regularly. Check our Events page for upcoming activities with live countdowns and registration links!',
+  contact:
+    'You can reach us at officialdatascienceaiclub.nita@gmail.com for collaborations. We are also active on our social media channels!'
 };
 
 // --- MAIN COMPONENT ---
@@ -91,7 +179,7 @@ export function ChatBot() {
   const handleQuickReply = (reply: QuickReply) => {
     addMessage(reply.text, 'user');
     setIsTyping(true);
-    
+
     setTimeout(() => {
       addMessage(reply.response, 'bot');
       setIsTyping(false);
@@ -112,7 +200,10 @@ export function ChatBot() {
         <AnimatePresence>
           {!isOpen && (
             <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }} exit={{ scale: 0 }}>
-              <Button onClick={() => setIsOpen(true)} className="w-16 h-16 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg glow-accent group flex items-center justify-center">
+              <Button
+                onClick={() => setIsOpen(true)}
+                className="w-16 h-16 rounded-full bg-accent text-accent-foreground hover:bg-accent/90 shadow-lg glow-accent group flex items-center justify-center"
+              >
                 <Icons.Bot className="h-8 w-8 group-hover:scale-110 transition-transform" />
               </Button>
             </motion.div>
@@ -127,9 +218,8 @@ export function ChatBot() {
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 20, scale: 0.95 }}
-            transition={{ duration: 0.3, ease: "easeInOut" }}
-            // The 'cn' function has been replaced with a template literal here
-            className={`fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm transition-all duration-300 ease-in-out`}
+            transition={{ duration: 0.3, ease: 'easeInOut' }}
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm transition-all duration-300 ease-in-out"
           >
             <Card className="h-[70vh] max-h-[600px] flex flex-col bg-card/80 backdrop-blur-xl border border-border shadow-2xl rounded-2xl">
               {/* Header */}
@@ -144,7 +234,12 @@ export function ChatBot() {
                     <p className="text-xs text-muted-foreground">Online</p>
                   </div>
                 </div>
-                <Button size="icon" variant="ghost" onClick={() => setIsOpen(false)} className="h-8 w-8 rounded-full">
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={() => setIsOpen(false)}
+                  className="h-8 w-8 rounded-full"
+                >
                   <Icons.X className="h-4 w-4" />
                 </Button>
               </div>
@@ -152,7 +247,7 @@ export function ChatBot() {
               {/* Messages */}
               <div className="flex-1 p-4 space-y-4 overflow-y-auto">
                 <AnimatePresence initial={false}>
-                  {messages.map((message) => (
+                  {messages.map(message => (
                     <motion.div
                       key={message.id}
                       layout
@@ -160,11 +255,11 @@ export function ChatBot() {
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: -10 }}
                       transition={{ duration: 0.3 }}
-                      // The 'cn' function has been replaced with a template literal here
-                      className={`flex items-end gap-2 ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}
+                      className={`flex items-end gap-2 ${
+                        message.sender === 'user' ? 'justify-end' : 'justify-start'
+                      }`}
                     >
-                      <div 
-                        // The 'cn' function has been replaced with a template literal here
+                      <div
                         className={`max-w-[80%] rounded-2xl px-4 py-2 text-sm ${
                           message.sender === 'user'
                             ? 'bg-primary text-primary-foreground rounded-br-none'
@@ -176,42 +271,71 @@ export function ChatBot() {
                     </motion.div>
                   ))}
                 </AnimatePresence>
-                
+
                 {isTyping && (
-                  <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-start">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="flex justify-start"
+                  >
                     <div className="bg-muted rounded-2xl rounded-bl-none px-4 py-2 flex items-center gap-1.5">
                       <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" />
-                      <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.1s' }} />
-                      <span className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
+                      <span
+                        className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                        style={{ animationDelay: '0.1s' }}
+                      />
+                      <span
+                        className="w-2 h-2 bg-muted-foreground rounded-full animate-bounce"
+                        style={{ animationDelay: '0.2s' }}
+                      />
                     </div>
                   </motion.div>
                 )}
 
-                {messages.length === 1 && !isTyping && (
-                   <div className="pt-4 space-y-2">
-                     <p className="text-xs text-muted-foreground text-center">Or ask one of these:</p>
-                     {quickReplies.map((reply) => (
-                       <Button key={reply.id} variant="outline" className="w-full justify-start h-auto text-left" onClick={() => handleQuickReply(reply)}>
-                         {reply.text}
-                       </Button>
-                     ))}
-                   </div>
+                {/* ✅ Quick replies always visible when bot is not typing */}
+                {!isTyping && (
+                  <div className="pt-4 space-y-2">
+                    <p className="text-xs text-muted-foreground text-center">
+                      Or ask one of these:
+                    </p>
+                    {quickReplies.map(reply => (
+                      <Button
+                        key={reply.id}
+                        variant="outline"
+                        className="w-full justify-start h-auto text-left"
+                        onClick={() => handleQuickReply(reply)}
+                      >
+                        {reply.text}
+                      </Button>
+                    ))}
+                  </div>
                 )}
+
                 <div ref={messagesEndRef} />
               </div>
 
               {/* Input */}
               <div className="p-4 border-t border-border">
-                <form onSubmit={(e) => { e.preventDefault(); handleSendMessage(); }} className="flex gap-2">
+                <form
+                  onSubmit={e => {
+                    e.preventDefault();
+                    handleSendMessage();
+                  }}
+                  className="flex gap-2"
+                >
                   <Input
                     value={inputValue}
-                    onChange={(e) => setInputValue(e.target.value)}
+                    onChange={e => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder="Ask a question..."
                     className="flex-1 text-sm bg-muted border-border"
                     disabled={isTyping}
                   />
-                  <Button size="icon" onClick={handleSendMessage} disabled={!inputValue.trim() || isTyping}>
+                  <Button
+                    size="icon"
+                    onClick={handleSendMessage}
+                    disabled={!inputValue.trim() || isTyping}
+                  >
                     <Icons.Send className="h-4 w-4" />
                   </Button>
                 </form>
