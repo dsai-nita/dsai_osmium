@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
- // adjust path
 
+// adjust path
 interface SplashScreenProps {
   onFinish: () => void;
 }
@@ -25,8 +25,17 @@ const getScatteredPositions = (count: number): Position[] =>
 const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
   const [phase, setPhase] = useState<"init" | "show" | "out">("init");
   const [positions] = useState(() => getScatteredPositions(keywords.length));
+  const [isMobile, setIsMobile] = useState(false); // mobile detection
   const rafRef = useRef<number | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+
+  // Detect mobile
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth <= 768);
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+    return () => window.removeEventListener("resize", checkMobile);
+  }, []);
 
   // Neural network canvas
   useEffect(() => {
@@ -109,7 +118,7 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
 
   return (
     <AnimatePresence>
-      {phase !== "done" && (
+      {phase!== "done" && (
         <motion.div
           key="splash"
           className="relative flex items-center justify-center h-screen w-screen overflow-hidden"
@@ -171,8 +180,8 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onFinish }) => {
               src={"logo.png"}
               alt="Logo"
               style={{
-                width: 520,
-                height: 520,
+                width: isMobile ? 260 : 520, // reduce size on mobile
+                height: isMobile ? 260 : 520,
                 borderRadius: "50%",
                 objectFit: "cover",
                 display: "block",
