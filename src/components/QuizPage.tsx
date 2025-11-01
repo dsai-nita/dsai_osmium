@@ -125,7 +125,6 @@ export function QuizPage() {
     return { grade: 'D', color: 'text-red-400', message: 'Try again!' }
   }
 
-  // Quiz Selection View
   if (!selectedQuiz) {
     return (
       <div className="min-h-screen pt-16 bg-gradient-to-b from-background via-background to-card">
