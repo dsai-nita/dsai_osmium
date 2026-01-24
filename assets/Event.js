@@ -100,6 +100,39 @@ const events = [
       speaker: "Dr. Suman Deb",
       resources: ["Competition Results", "Winner Solutions", "Dataset"],
       registrationLink:"https://docs.google.com/forms/d/e/1FAIpQLSeZjrhRkVVg6RgrICjvh1cxzFTIlVlFqy-2LbNkpSadkQJIbw/viewform?usp=sharing&ouid=109740403661052641474"
+    },
+    {
+      id: 7,
+      title: "Fresher's Interaction with DSAI Club & Prep Session",
+      description: "This session aims to provide fresher's with a clear roadmap, essential guidance, and curated resources to get started in Data Science and Artificial Intelligence.",
+      date: "2026-01-25",
+      time: "10:00:00",
+      venue: "Mathematics department, Room No. 306 (new KV Building)",
+      type: "Interaction Session",
+      topic: "Data Science & AI",
+      year: 2026,
+      attendees: 0,
+      status: "Upcoming",
+      image: "https://res.cloudinary.com/dtd5jbpvk/image/upload/v1769243495/WhatsApp_Image_2026-01-24_at_13.44.39_nsp7v6.jpg",
+      speaker: "Team DSAI Club",
+      resources: [],
+      registrationLink: ""
+    },
+    {
+    "id": 8,
+    "title": "DSAI Unplugged 2.0",
+    "description": "Main interaction session focused on recruitment for the DSAI Club. The session will cover the club's mission, vision, recruitment roadmap, and key skills like Python, EDA, and Machine Learning.",
+    "date": "2025-11-09",
+    "time": "10:30:00",
+    "venue": "G-07, CSE Department",
+    "type": "Recruitment Session",
+    "topic": "DSAI Club Recruitment, AI, Data Science, Machine Learning",
+    "year": 2025,
+    "attendees": "TBD",
+    "status": "Upcoming",
+    "image": "https://res.cloudinary.com/dhirmdjpz/image/upload/7773e9a6-ea1a-4a47-9f59-c98228c3d8ab_kinjn9.jpg",
+    "speaker": "DSAI Club Leadership/Members",
+    "resources": ["Recruitment Roadmap", "Skill Recommendations"],
     }
   ]
 export default events
