@@ -1,6 +1,6 @@
 import { Icons } from './Icons'
 import { Button } from './ui/button'
-import { useAuth } from '../App'
+import { useAuth } from '../Context/AuthContext'
 
 interface MemberDashboardProps {
   userData: any

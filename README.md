@@ -1,5 +1,6 @@
 
-  # DSAI Website Development
+  # Project-> OSMIUM -> DSAI Website 
+  Created using React+TypeScript
 
 
   ## Running the code

@@ -8,7 +8,7 @@ import { Input } from './ui/input';
 import { Label } from './ui/label';
 import { Checkbox } from './ui/checkbox';
 import { toast } from 'sonner';
-import { useAuth } from '../App';
+import { useAuth } from '../Context/AuthContext';
 import { motion } from 'framer-motion';
 import { AnimatedBackground } from './AnimatedBackground';
 import { FloatingKeywords } from './FloatingKeywords';
@@ -125,7 +125,7 @@ export function LoginPage() {
                 </div>
                 <div className="flex items-center justify-between text-sm">
                   <div className="flex items-center space-x-2">
-                    <Checkbox id="rememberMe" checked={loginData.rememberMe} onCheckedChange={(checked) => setLoginData(prev => ({ ...prev, rememberMe: !!checked }))} />
+                    <Checkbox id="rememberMe" checked={loginData.rememberMe} onCheckedChange={(checked:boolean) => setLoginData(prev => ({ ...prev, rememberMe: !!checked }))} />
                     <Label htmlFor="rememberMe">Remember me</Label>
                   </div>
                   <Button variant="link" asChild className="text-accent p-0 h-auto"><Link to="/forgot-password">Forgot password?</Link></Button>

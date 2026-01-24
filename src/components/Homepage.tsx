@@ -24,7 +24,7 @@ export function Homepage() {
       if (index === fullText.length) {
         clearInterval(timer);
       }
-    }, 80);
+    }, 100);
     return () => clearInterval(timer);
   }, []);
 
@@ -100,7 +100,7 @@ export function Homepage() {
     { name: 'Artificial Intelligence', icon: Cpu, color: 'text-accent' },
     { name: 'Machine Learning', icon: BrainCircuit, color: 'text-secondary' },
     { name: 'Deep Learning', icon: Layers, color: 'text-accent' },
-    { name: 'Generative AI', icon: Sparkles, color: 'text-secondary' },
+    { name: 'Generative AI', icon: Sparkles, color: 'text-gray' },
     { name: 'Natural Language Processing', icon: MessageCircle, color: 'text-accent' },
     { name: 'MLOps', icon: RefreshCw, color: 'text-secondary' },
     { name: 'Data Science', icon: DatabaseZap, color: 'text-accent' },
@@ -117,7 +117,7 @@ export function Homepage() {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <video autoPlay muted loop playsInline className="w-full h-full object-cover opacity-15 dark:opacity-20">
-            <source src="https://cdn.pixabay.com/vimeo/278747000/background-loop.mp4" type="video/mp4" />
+            <source src="hero_video.mp4" type="video/mp4" />
           </video>
           <div className="absolute inset-0 bg-gradient-to-br from-background/95 via-background/90 to-primary/15 dark:from-background/90 dark:via-background/80 dark:to-primary/20" />
         </div>
