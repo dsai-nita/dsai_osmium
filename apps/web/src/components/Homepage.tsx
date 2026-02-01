@@ -54,19 +54,19 @@ export function Homepage() {
 
   const upcomingEvents = [
     {
-      title: "Fresher's Interaction with DSAI Club & Prep Session",
-      date: "Jan 25, 2026",
+      title: "Recruitment Test",
+      date: "March 8, 2026",
       type: "Interaction Session",
-      description: "This session aims to provide freshers with a clear roadmap, essential guidance, and curated resources to get started in Data Science.",
+      description: "DSAI will conduct Recruitment Test for their next batch juniors.",
       icon: Icons.Users
     },
-    {
-      title: "AIspire 2.0 Orientation",
-      date: "Sep 12, 2025",
-      type: "Orientation",
-      description: "An introductory session for all aspiring tech enthusiasts and newcomers.",
-      icon: Icons.Users
-    }
+    // {
+    //   title: "AIspire 2.0 Orientation",
+    //   date: "Sep 12, 2025",
+    //   type: "Orientation",
+    //   description: "An introductory session for all aspiring tech enthusiasts and newcomers.",
+    //   icon: Icons.Users
+    // }
   ];
 
   const exploreAreas = [
