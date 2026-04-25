@@ -10,9 +10,15 @@ import path from 'path';
 import tailwindcss from '@tailwindcss/vite'
 export default defineConfig({
   plugins: [react(), tailwindcss()],
+  optimizeDeps: {
+    include: ['@vercel/speed-insights/react', 'react', 'react-dom']
+  },
   resolve: {
+    dedupe: ['react', 'react-dom'],
     extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
     alias: {
+      'react': path.resolve(__dirname, 'node_modules/react'),
+      'react-dom': path.resolve(__dirname, 'node_modules/react-dom'),
       'vaul@1.1.2': 'vaul',
       'sonner@2.0.3': 'sonner',
       'recharts@2.15.2': 'recharts',
