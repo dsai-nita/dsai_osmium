@@ -7,6 +7,12 @@ const { ApiError, asyncHandler } = require("../utils/apiError");
  * and attaches it to req.user for downstream handlers.
  */
 const protect = asyncHandler(async (req, res, next) => {
+
+   console.log("========== AUTH DEBUG ==========");
+  console.log("Origin:", req.headers.origin);
+  console.log("Cookies:", req.cookies);
+  console.log("Authorization:", req.headers.authorization);
+  console.log("================================");
   let token;
 
   if (req.cookies && req.cookies.token) {
