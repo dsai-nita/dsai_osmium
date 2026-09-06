@@ -22,7 +22,7 @@ const protect = asyncHandler(async (req, res, next) => {
   }
 
   if (!token) {
-    throw new ApiError(401, "Not authorized, no token provided");
+    throw new ApiError(401, "Not authorized, no token provided",req.cookies);
   }
 
   let decoded;
