@@ -1,21 +1,28 @@
 require("dotenv").config();
+
 const app = require("./app");
 const connectDB = require("./config/db");
 
-const PORT = process.env.PORT || 5000;
+let dbPromise;
 
-const start = async () => {
-  await connectDB();
+const handler = async (req, res) => {
+  try {
+    if (!dbPromise) {
+      dbPromise = connectDB();
+    }
 
-  const server = app.listen(PORT, () => {
-    console.log(`DSAI Club API running in ${process.env.NODE_ENV || "development"} mode on port ${PORT}`);
-  });
+    await dbPromise;
 
-  // Fail loudly on unhandled promise rejections instead of silently hanging
-  process.on("unhandledRejection", (err) => {
-    console.error(`Unhandled Rejection: ${err.message}`);
-    server.close(() => process.exit(1));
-  });
+    return app(req, res);
+  } catch (error) {
+    console.error("Database connection error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Database connection failed",
+      error: error.message,
+    });
+  }
 };
 
-start();
+module.exports = handler;
