@@ -750,7 +750,6 @@ function ThemeToggleButton({
 
 
 
-
 function AuthButton({
   isLoggedIn,
   userData,
@@ -764,6 +763,7 @@ function AuthButton({
   const [showProfile, setShowProfile] = useState(false);
   const [selectedImage, setSelectedImage] = useState<string | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [isUpdating, setIsUpdating] = useState(false);
 
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -826,9 +826,11 @@ function AuthButton({
     };
 
 const handleUpdateImage = async () => {
-  if (!selectedFile || !selectedImage) return;
+  if (!selectedFile || !selectedImage || isUpdating) return;
 
   try {
+    setIsUpdating(true);
+
     console.log("Selected file:", selectedFile);
 
     const formData = new FormData();
@@ -840,13 +842,15 @@ const handleUpdateImage = async () => {
 
     localStorage.setItem("profileImage", selectedImage);
 
-    setShowProfile(false);
     setSelectedFile(null);
+    setShowProfile(false);
 
     Toaster.success("Profile image updated successfully!");
   } catch (error) {
     console.error("Profile image update failed:", error);
     Toaster.error("Failed to update profile image");
+  } finally {
+    setIsUpdating(false);
   }
 };
 
@@ -976,14 +980,23 @@ const handleUpdateImage = async () => {
                 📷 Choose New Image
               </Button>
 
-              {selectedFile && (
-                <Button
-                  className="w-full"
-                  onClick={handleUpdateImage}
-                >
-                  ✓ Update Profile Image
-                </Button>
-              )}
+          
+          {selectedFile && (
+  <Button
+    className="w-full"
+    onClick={handleUpdateImage}
+    disabled={isUpdating}
+  >
+    {isUpdating ? (
+      <>
+        <span className="mr-2 animate-spin">⟳</span>
+        Updating...
+      </>
+    ) : (
+      "✓ Update Profile Image"
+    )}
+  </Button>
+)}
 
              
               <button
@@ -1011,6 +1024,37 @@ const handleUpdateImage = async () => {
       </>
     );
   }
+
+  return (
+    <div
+      className={
+        isMobile
+          ? "space-y-2"
+          : "flex items-center gap-2"
+      }
+    >
+      <Button
+        asChild
+        className={buttonClass}
+        variant={isMobile ? "outline" : "default"}
+      >
+        <Link to="/login">
+          Login
+        </Link>
+      </Button>
+
+      <Button
+        asChild
+        className={buttonClass}
+        variant={isMobile ? "default" : "outline"}
+      >
+        <Link to="/register">
+          Register
+        </Link>
+      </Button>
+    </div>
+  );
+}
 
   return (
     <div
