@@ -1,15 +1,12 @@
-import { useState,useRef } from "react";
+
+import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
-import { Toaster } from "sonner";
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "./ui/sheet";
+import { toast } from "sonner";
+import { Sheet, SheetContent, SheetTrigger } from "./ui/sheet";
 import { motion } from "framer-motion";
 import { useAuth } from "../Context/AuthContext";
-import {usersApi} from "../lib/endpoints";
+import { usersApi } from "../lib/endpoints";
 
 import {
   Home,
@@ -41,9 +38,6 @@ interface NavigationProps {
     } | string;
   };
 }
-
-
-
 
 const baseNavItems = [
   {
@@ -103,7 +97,6 @@ const baseNavItems = [
   },
 ];
 
-
 export function Navigation({}: NavigationProps) {
   const {
     isDarkMode,
@@ -115,11 +108,7 @@ export function Navigation({}: NavigationProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const location = useLocation();
-
   const currentPath = location.pathname;
-
-
-  
 
   const role = userData?.role?.toLowerCase() || "";
 
@@ -129,14 +118,9 @@ export function Navigation({}: NavigationProps) {
     role.includes("general secretary") ||
     role.includes("assistant general secretary");
 
-
-
-
   const dashboardPath = isAdminRole
     ? "/admin-dashboard"
     : "/member-dashboard";
-
-
 
   const allNavItems = isLoggedIn
     ? [
@@ -149,10 +133,6 @@ export function Navigation({}: NavigationProps) {
       ]
     : baseNavItems;
 
-
-
- 
-
   const desktopNavPaths = [
     "/",
     "/events",
@@ -162,18 +142,13 @@ export function Navigation({}: NavigationProps) {
     dashboardPath,
   ];
 
-
-  const desktopNavItems = allNavItems.filter(
-    (item) => desktopNavPaths.includes(item.path)
+  const desktopNavItems = allNavItems.filter((item) =>
+    desktopNavPaths.includes(item.path)
   );
-
 
   const desktopMoreItems = allNavItems.filter(
     (item) => !desktopNavPaths.includes(item.path)
   );
-
-
-
 
   const mobileVisiblePaths = [
     "/",
@@ -184,16 +159,13 @@ export function Navigation({}: NavigationProps) {
     dashboardPath,
   ];
 
-
-  const mobileVisibleItems = allNavItems.filter(
-    (item) => mobileVisiblePaths.includes(item.path)
+  const mobileVisibleItems = allNavItems.filter((item) =>
+    mobileVisiblePaths.includes(item.path)
   );
-
 
   const mobileMenuItems = allNavItems.filter(
     (item) => !mobileVisiblePaths.includes(item.path)
   );
-
 
   return (
     <nav
@@ -209,10 +181,9 @@ export function Navigation({}: NavigationProps) {
       "
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <div className="flex justify-between items-center h-16">
 
-
+          {/* Logo */}
           <Link
             to="/"
             className="
@@ -247,8 +218,7 @@ export function Navigation({}: NavigationProps) {
             </span>
           </Link>
 
-
-          
+          {/* Desktop Navigation */}
           <div
             className="
               hidden
@@ -260,7 +230,6 @@ export function Navigation({}: NavigationProps) {
             "
           >
             <div className="flex items-center space-x-1">
-
               {desktopNavItems.map((item) => (
                 <NavLink
                   key={item.path}
@@ -268,12 +237,10 @@ export function Navigation({}: NavigationProps) {
                   currentPath={currentPath}
                 />
               ))}
-
             </div>
           </div>
 
-
-          
+          {/* Mobile Controls */}
           <div
             className="
               md:hidden
@@ -282,22 +249,15 @@ export function Navigation({}: NavigationProps) {
               space-x-1
             "
           >
-
-            {/* Theme */}
-
             <ThemeToggleButton
               isDarkMode={isDarkMode}
               onToggleTheme={toggleTheme}
             />
 
-
-
-
             <Sheet
               open={isMenuOpen}
               onOpenChange={setIsMenuOpen}
             >
-
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -307,7 +267,6 @@ export function Navigation({}: NavigationProps) {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-
 
               <SheetContent
                 side="right"
@@ -321,9 +280,7 @@ export function Navigation({}: NavigationProps) {
                   flex-col
                 "
               >
-
-                
-
+                {/* Mobile Header */}
                 <div
                   className="
                     p-4
@@ -340,7 +297,6 @@ export function Navigation({}: NavigationProps) {
                       space-x-3
                     "
                   >
-
                     <img
                       src="/logo.png"
                       alt="DSAI Logo"
@@ -360,13 +316,10 @@ export function Navigation({}: NavigationProps) {
                     >
                       DSAI Club
                     </span>
-
                   </Link>
                 </div>
 
-
-
-
+                {/* Mobile Navigation */}
                 <div
                   className="
                     flex-1
@@ -375,35 +328,26 @@ export function Navigation({}: NavigationProps) {
                     space-y-2
                   "
                 >
-
                   {mobileVisibleItems.map((item) => (
                     <MobileNavItem
                       key={item.path}
                       item={item}
                       currentPath={currentPath}
-                      onClick={() =>
-                        setIsMenuOpen(false)
-                      }
+                      onClick={() => setIsMenuOpen(false)}
                     />
                   ))}
-
 
                   {mobileMenuItems.map((item) => (
                     <MobileNavItem
                       key={item.path}
                       item={item}
                       currentPath={currentPath}
-                      onClick={() =>
-                        setIsMenuOpen(false)
-                      }
+                      onClick={() => setIsMenuOpen(false)}
                     />
                   ))}
-
                 </div>
 
-
-              
-
+                {/* Mobile Auth */}
                 <div
                   className="
                     p-4
@@ -411,24 +355,17 @@ export function Navigation({}: NavigationProps) {
                     border-border
                   "
                 >
-
                   <AuthButton
                     isLoggedIn={isLoggedIn}
                     userData={userData}
                     isMobile
                   />
-
                 </div>
-
               </SheetContent>
-
             </Sheet>
-
           </div>
 
-
-    
-
+          {/* Desktop Controls */}
           <div
             className="
               hidden
@@ -437,30 +374,20 @@ export function Navigation({}: NavigationProps) {
               space-x-2
             "
           >
-
-        
-
             <ThemeToggleButton
               isDarkMode={isDarkMode}
               onToggleTheme={toggleTheme}
             />
-
-
-            
 
             <AuthButton
               isLoggedIn={isLoggedIn}
               userData={userData}
             />
 
-
-          
-
             <Sheet
               open={isMenuOpen}
               onOpenChange={setIsMenuOpen}
             >
-
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
@@ -470,7 +397,6 @@ export function Navigation({}: NavigationProps) {
                   <Menu className="h-6 w-6" />
                 </Button>
               </SheetTrigger>
-
 
               <SheetContent
                 side="right"
@@ -484,8 +410,7 @@ export function Navigation({}: NavigationProps) {
                   flex-col
                 "
               >
-
-     
+                {/* More Menu Header */}
                 <div
                   className="
                     p-4
@@ -495,16 +420,13 @@ export function Navigation({}: NavigationProps) {
                 >
                   <Link
                     to="/"
-                    onClick={() =>
-                      setIsMenuOpen(false)
-                    }
+                    onClick={() => setIsMenuOpen(false)}
                     className="
                       flex
                       items-center
                       space-x-3
                     "
                   >
-
                     <img
                       src="/logo.png"
                       alt="DSAI Logo"
@@ -524,13 +446,10 @@ export function Navigation({}: NavigationProps) {
                     >
                       DSAI Club
                     </span>
-
                   </Link>
                 </div>
 
-
-   
-
+                {/* More Navigation */}
                 <div
                   className="
                     flex-1
@@ -539,23 +458,17 @@ export function Navigation({}: NavigationProps) {
                     space-y-2
                   "
                 >
-
                   {desktopMoreItems.map((item) => (
                     <MobileNavItem
                       key={item.path}
                       item={item}
                       currentPath={currentPath}
-                      onClick={() =>
-                        setIsMenuOpen(false)
-                      }
+                      onClick={() => setIsMenuOpen(false)}
                     />
                   ))}
-
                 </div>
 
-
-         
-
+                {/* Desktop Sheet Auth */}
                 <div
                   className="
                     p-4
@@ -563,30 +476,24 @@ export function Navigation({}: NavigationProps) {
                     border-border
                   "
                 >
-
                   <AuthButton
                     isLoggedIn={isLoggedIn}
                     userData={userData}
                     isMobile
                   />
-
                 </div>
-
               </SheetContent>
-
             </Sheet>
-
           </div>
-
         </div>
-
       </div>
     </nav>
   );
 }
 
-
-
+/* =========================
+   Desktop Navigation Link
+========================= */
 
 function NavLink({
   item,
@@ -598,9 +505,7 @@ function NavLink({
   };
   currentPath: string;
 }) {
-
-  const isActive =
-    currentPath === item.path;
+  const isActive = currentPath === item.path;
 
   return (
     <Link
@@ -620,7 +525,6 @@ function NavLink({
         }
       `}
     >
-
       {item.label}
 
       {isActive && (
@@ -641,12 +545,13 @@ function NavLink({
           }}
         />
       )}
-
     </Link>
   );
 }
 
-
+/* =========================
+   Mobile Navigation Item
+========================= */
 
 function MobileNavItem({
   item,
@@ -661,9 +566,7 @@ function MobileNavItem({
   currentPath: string;
   onClick: () => void;
 }) {
-
-  const isActive =
-    currentPath === item.path;
+  const isActive = currentPath === item.path;
 
   const Icon = item.icon;
 
@@ -688,17 +591,16 @@ function MobileNavItem({
         }
       `}
     >
-
       <Icon className="h-5 w-5" />
 
       {item.label}
-
     </Link>
   );
 }
 
-
-
+/* =========================
+   Theme Toggle
+========================= */
 
 function ThemeToggleButton({
   isDarkMode,
@@ -707,7 +609,6 @@ function ThemeToggleButton({
   NavigationProps,
   "isDarkMode" | "onToggleTheme"
 >) {
-
   return (
     <Button
       variant="ghost"
@@ -719,7 +620,6 @@ function ThemeToggleButton({
           : "Switch to dark mode"
       }
     >
-
       <Sun
         className="
           h-5
@@ -744,13 +644,13 @@ function ThemeToggleButton({
           dark:scale-100
         "
       />
-
     </Button>
   );
 }
 
-
-
+/* =========================
+   Authentication Button
+========================= */
 
 function AuthButton({
   isLoggedIn,
@@ -763,18 +663,22 @@ function AuthButton({
   isMobile?: boolean;
 }) {
   const [showProfile, setShowProfile] = useState(false);
-  const [selectedImage, setSelectedImage] = useState<string | null>(null);
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedImage, setSelectedImage] =
+    useState<string | null>(null);
+  const [selectedFile, setSelectedFile] =
+    useState<File | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const fileInputRef = useRef<HTMLInputElement>(null);
+  const fileInputRef =
+    useRef<HTMLInputElement>(null);
 
   const buttonClass = isMobile
     ? "w-full text-base py-3"
     : "px-2";
 
   if (isLoggedIn && userData) {
-    const role = userData.role?.toLowerCase() || "";
+    const role =
+      userData.role?.toLowerCase() || "";
 
     const isAdminRole =
       role.includes("president") ||
@@ -797,7 +701,13 @@ function AuthButton({
       )}&background=random`;
 
     const currentImage =
-      selectedImage || profileImage || fallbackImage;
+      selectedImage ||
+      profileImage ||
+      fallbackImage;
+
+    /* =========================
+       Select Image
+    ========================= */
 
     const handleImageSelect = (
       e: React.ChangeEvent<HTMLInputElement>
@@ -807,12 +717,20 @@ function AuthButton({
       if (!file) return;
 
       if (!file.type.startsWith("image/")) {
-        alert("Please select a valid image.");
+        toast.error(
+          "Please select a valid image."
+        );
+
+        e.target.value = "";
         return;
       }
 
       if (file.size > 5 * 1024 * 1024) {
-        alert("Image size must be less than 5MB.");
+        toast.error(
+          "Image size must be less than 5MB."
+        );
+
+        e.target.value = "";
         return;
       }
 
@@ -821,53 +739,113 @@ function AuthButton({
       const reader = new FileReader();
 
       reader.onloadend = () => {
-        setSelectedImage(reader.result as string);
+        setSelectedImage(
+          reader.result as string
+        );
       };
 
       reader.readAsDataURL(file);
     };
 
-const handleUpdateImage = async () => {
-  if (!selectedFile || !selectedImage || isUpdating) return;
+    /* =========================
+       Update Profile Image
+    ========================= */
 
-  try {
-    setIsUpdating(true);
+    const handleUpdateImage = async () => {
+      if (
+        !selectedFile ||
+        !selectedImage ||
+        isUpdating
+      ) {
+        return;
+      }
 
-    console.log("Selected file:", selectedFile);
+      try {
+        setIsUpdating(true);
 
-    const formData = new FormData();
-    formData.append("image", selectedFile);
+        console.log(
+          "Selected file:",
+          selectedFile
+        );
 
-    const res = await usersApi.updateProfile(formData);
+        const formData = new FormData();
 
-    console.log("Profile update response:", res);
+        formData.append(
+          "image",
+          selectedFile
+        );
 
-    localStorage.setItem("profileImage", selectedImage);
+        const res =
+          await usersApi.updateProfile(
+            formData
+          );
 
-    setSelectedFile(null);
-    setShowProfile(false);
+        console.log(
+          "Profile update response:",
+          res
+        );
 
-    Toaster.success("Profile image updated successfully!");
-  } catch (error) {
-    console.error("Profile image update failed:", error);
-    Toaster.error("Failed to update profile image");
-  } finally {
-    setIsUpdating(false);
-  }
-};
+        /*
+         * Backend response expected:
+         *
+         * {
+         *   success: true,
+         *   message: "...",
+         *   data: {
+         *     profileImage: {
+         *       url: "..."
+         *     }
+         *   }
+         * }
+         */
+
+        const updatedImage =
+          res?.data?.profileImage?.url;
+
+        if (updatedImage) {
+          localStorage.setItem(
+            "profileImage",
+            updatedImage
+          );
+        }
+
+        setSelectedFile(null);
+        setSelectedImage(null);
+        setShowProfile(false);
+
+        toast.success(
+          "Profile image updated successfully!"
+        );
+      } catch (error) {
+        console.error(
+          "Profile image update failed:",
+          error
+        );
+
+        toast.error(
+          "Failed to update profile image"
+        );
+      } finally {
+        setIsUpdating(false);
+      }
+    };
 
     return (
       <>
-   
+        {/* Profile Button */}
         <Button
           variant="ghost"
           className={`${buttonClass} rounded-full`}
-          onClick={() => setShowProfile(true)}
+          onClick={() =>
+            setShowProfile(true)
+          }
           title={userData.name}
         >
           <img
             src={currentImage}
-            alt={userData.name || "Profile"}
+            alt={
+              userData.name || "Profile"
+            }
             className="
               h-9
               w-9
@@ -882,7 +860,7 @@ const handleUpdateImage = async () => {
           />
         </Button>
 
-      
+        {/* Profile Modal */}
         {showProfile && (
           <div
             className="
@@ -897,7 +875,11 @@ const handleUpdateImage = async () => {
               backdrop-blur-sm
               p-4
             "
-            onClick={() => setShowProfile(false)}
+            onClick={() => {
+              if (!isUpdating) {
+                setShowProfile(false);
+              }
+            }}
           >
             <div
               className="
@@ -911,13 +893,11 @@ const handleUpdateImage = async () => {
                 shadow-2xl
                 p-6
               "
-              onClick={(e) => e.stopPropagation()}
+              onClick={(e) =>
+                e.stopPropagation()
+              }
             >
-
-            
-           
-
-              
+              {/* Modal Header */}
               <div className="text-center mb-6">
                 <h2 className="text-xl font-bold">
                   Profile
@@ -928,7 +908,7 @@ const handleUpdateImage = async () => {
                 </p>
               </div>
 
-          
+              {/* Profile Preview */}
               <div className="flex justify-center mb-6">
                 <div className="relative">
                   <img
@@ -944,12 +924,10 @@ const handleUpdateImage = async () => {
                       shadow-lg
                     "
                   />
-
-               
                 </div>
               </div>
 
-
+              {/* Hidden File Input */}
               <input
                 ref={fileInputRef}
                 type="file"
@@ -958,7 +936,7 @@ const handleUpdateImage = async () => {
                 onChange={handleImageSelect}
               />
 
- 
+              {/* User Information */}
               <div className="text-center mb-6">
                 <h3 className="font-semibold text-lg">
                   {userData.name}
@@ -971,10 +949,11 @@ const handleUpdateImage = async () => {
                 )}
               </div>
 
-
+              {/* Choose Image */}
               <Button
                 variant="outline"
                 className="w-full mb-3"
+                disabled={isUpdating}
                 onClick={() =>
                   fileInputRef.current?.click()
                 }
@@ -982,26 +961,30 @@ const handleUpdateImage = async () => {
                 📷 Choose New Image
               </Button>
 
-          
-          {selectedFile && (
-  <Button
-    className="w-full"
-    onClick={handleUpdateImage}
-    disabled={isUpdating}
-  >
-    {isUpdating ? (
-      <>
-        <span className="mr-2 animate-spin">⟳</span>
-        Updating...
-      </>
-    ) : (
-      "✓ Update Profile Image"
-    )}
-  </Button>
-)}
+              {/* Update Image */}
+              {selectedFile && (
+                <Button
+                  className="w-full"
+                  onClick={handleUpdateImage}
+                  disabled={isUpdating}
+                >
+                  {isUpdating ? (
+                    <>
+                      <span className="mr-2 animate-spin">
+                        ⟳
+                      </span>
 
-             
+                      Updating...
+                    </>
+                  ) : (
+                    "✓ Update Profile Image"
+                  )}
+                </Button>
+              )}
+
+              {/* Cancel */}
               <button
+                disabled={isUpdating}
                 onClick={() => {
                   setSelectedImage(null);
                   setSelectedFile(null);
@@ -1015,17 +998,22 @@ const handleUpdateImage = async () => {
                   text-muted-foreground
                   hover:text-foreground
                   transition
+                  disabled:opacity-50
+                  disabled:cursor-not-allowed
                 "
               >
                 Cancel
               </button>
-
             </div>
           </div>
         )}
       </>
     );
   }
+
+  /* =========================
+     Logged Out
+  ========================= */
 
   return (
     <div
@@ -1038,7 +1026,11 @@ const handleUpdateImage = async () => {
       <Button
         asChild
         className={buttonClass}
-        variant={isMobile ? "outline" : "default"}
+        variant={
+          isMobile
+            ? "outline"
+            : "default"
+        }
       >
         <Link to="/login">
           Login
@@ -1048,7 +1040,11 @@ const handleUpdateImage = async () => {
       <Button
         asChild
         className={buttonClass}
-        variant={isMobile ? "default" : "outline"}
+        variant={
+          isMobile
+            ? "default"
+            : "outline"
+        }
       >
         <Link to="/register">
           Register
@@ -1057,3 +1053,4 @@ const handleUpdateImage = async () => {
     </div>
   );
 }
+
