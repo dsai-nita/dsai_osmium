@@ -1,4 +1,4 @@
-import { useState,useRef ,camera} from "react";
+import { useState,useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
 import { Toaster } from "sonner";
@@ -283,6 +283,7 @@ export function Navigation({}: NavigationProps) {
             "
           >
 
+            {/* Theme */}
 
             <ThemeToggleButton
               isDarkMode={isDarkMode}
@@ -750,6 +751,7 @@ function ThemeToggleButton({
 
 
 
+
 function AuthButton({
   isLoggedIn,
   userData,
@@ -1024,37 +1026,6 @@ const handleUpdateImage = async () => {
       </>
     );
   }
-
-  return (
-    <div
-      className={
-        isMobile
-          ? "space-y-2"
-          : "flex items-center gap-2"
-      }
-    >
-      <Button
-        asChild
-        className={buttonClass}
-        variant={isMobile ? "outline" : "default"}
-      >
-        <Link to="/login">
-          Login
-        </Link>
-      </Button>
-
-      <Button
-        asChild
-        className={buttonClass}
-        variant={isMobile ? "default" : "outline"}
-      >
-        <Link to="/register">
-          Register
-        </Link>
-      </Button>
-    </div>
-  );
-}
 
   return (
     <div
