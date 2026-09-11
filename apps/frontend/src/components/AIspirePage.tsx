@@ -98,7 +98,38 @@ const getEventDate = (event: any) => {
   );
 };
 
+const getEventTime = (event: any) => {
+  return (
+    event?.startTime ||
+    event?.time ||
+    event?.eventTime ||
+    event?.start_time ||
+    null
+  );
+};
 
+const getEventDateTime = (event: any): Date | null => {
+  const date = getEventDate(event);
+  const time = getEventTime(event);
+
+  if (!date) return null;
+
+  const dateString = String(date).trim();
+
+  if (dateString.includes("T") || /\d{2}:\d{2}/.test(dateString)) {
+    const parsed = new Date(dateString);
+    return isNaN(parsed.getTime()) ? null : parsed;
+  }
+
+  if (time) {
+    const timeString = String(time).trim();
+    const parsed = new Date(`${dateString}T${timeString}`);
+    if (!isNaN(parsed.getTime())) return parsed;
+  }
+
+  const parsed = new Date(`${dateString}T00:00:00`);
+  return isNaN(parsed.getTime()) ? null : parsed;
+};
 
 
 const getRegistrationLink = (event: any) => {
@@ -115,8 +146,6 @@ const getRegistrationLink = (event: any) => {
 };
 
 
-
-
 const getOrientationImage = (event: any) => {
   return (
     event?.image ||
@@ -129,8 +158,6 @@ const getOrientationImage = (event: any) => {
 };
 
 
-
-
 const getEventDescription = (event: any) => {
   return (
     event?.description ||
@@ -139,8 +166,6 @@ const getEventDescription = (event: any) => {
     "Join DSAI and explore the world of Data Science and Artificial Intelligence."
   );
 };
-
-
 
 
 const getFeatures = (event: any) => {
@@ -176,140 +201,103 @@ const getEligibility = (event: any) => {
 
 
 const now = new Date();
+const nowTimestamp = now.getTime();
 
 const upcomingOrientations = orientationEvents
-  .filter((event: any) => {
-    const date = getEventDate(event);
-
-    if (!date) return false;
-
-    return new Date(date).getTime() >= now.getTime();
+  .map((event: any) => ({
+    event,
+    dateTime: getEventDateTime(event),
+  }))
+  .filter(({ dateTime }) => {
+    return dateTime !== null && dateTime.getTime() >= nowTimestamp;
   })
-  .sort((a: any, b: any) => {
-    return (
-      new Date(getEventDate(a)).getTime() -
-      new Date(getEventDate(b)).getTime()
-    );
+  .sort((a, b) => {
+    return a.dateTime!.getTime() - b.dateTime!.getTime();
   });
-
 
 const pastOrientationEvents = orientationEvents
-  .filter((event: any) => {
-    const date = getEventDate(event);
-
-    if (!date) return false;
-
-    return new Date(date).getTime() < now.getTime();
+  .map((event: any) => ({
+    event,
+    dateTime: getEventDateTime(event),
+  }))
+  .filter(({ dateTime }) => {
+    return dateTime !== null && dateTime.getTime() < nowTimestamp;
   })
-  .sort((a: any, b: any) => {
-    return (
-      new Date(getEventDate(b)).getTime() -
-      new Date(getEventDate(a)).getTime()
-    );
-  });
+  .sort((a, b) => {
+    return b.dateTime!.getTime() - a.dateTime!.getTime();
+  })
+  .map(({ event }) => event);
 
-
-const currentOrientation =
+const nextUpcomingEvent =
   upcomingOrientations.length > 0
-    ? {
-        isUpcoming: true,
+    ? upcomingOrientations[0].event
+    : null;
 
-        event: upcomingOrientations[0],
-
-        title:
-          upcomingOrientations[0]?.title ||
-          upcomingOrientations[0]?.name ||
-          "AIspire Orientation",
-
-        year: new Date(
-          getEventDate(upcomingOrientations[0])
-        ).getFullYear(),
-
-        date: getEventDate(upcomingOrientations[0]),
-
-           status:
-          new Date(
-            getEventDate(upcomingOrientations[0])
-          ).getTime() >= new Date().getTime()
-            ? "Registration Open"
-            : "Registration Closed",
-
-        description:
-          getEventDescription(upcomingOrientations[0]),
-
-        features:
-          getFeatures(upcomingOrientations[0]),
-
-        eligibility:
-          getEligibility(upcomingOrientations[0]),
-
-        registrationLink:
-          getRegistrationLink(upcomingOrientations[0]),
-
-        image:
-          getOrientationImage(upcomingOrientations[0]),
-      }
-    : {
-        isUpcoming: false,
-      };
-
+const currentOrientation = nextUpcomingEvent
+  ? {
+      isUpcoming: true,
+      event: nextUpcomingEvent,
+      title:
+        nextUpcomingEvent?.title ||
+        nextUpcomingEvent?.name ||
+        "AIspire Orientation",
+      year: getEventDateTime(nextUpcomingEvent)
+        ? getEventDateTime(nextUpcomingEvent)!.getFullYear()
+        : "",
+      date: getEventDate(nextUpcomingEvent),
+      status: "Registration Open",
+      description: getEventDescription(nextUpcomingEvent),
+      features: getFeatures(nextUpcomingEvent),
+      eligibility: getEligibility(nextUpcomingEvent),
+      registrationLink: getRegistrationLink(nextUpcomingEvent),
+      image: getOrientationImage(nextUpcomingEvent),
+    }
+  : {
+      isUpcoming: false,
+    };
 
 const pastOrientations = pastOrientationEvents.map(
   (event: any) => ({
     event,
-
     title:
       event?.title ||
       event?.name ||
       "AIspire Orientation",
-
-    year: getEventDate(event)
-      ? new Date(getEventDate(event)).getFullYear()
+    year: getEventDateTime(event)
+      ? getEventDateTime(event)!.getFullYear()
       : "",
-
     date: getEventDate(event),
-
-    description:
-      getEventDescription(event),
-
+    description: getEventDescription(event),
     participants:
       event?.participants ??
       event?.attendees ??
       event?.registeredUsers ??
       0,
-
     sessions:
       event?.sessions ??
       event?.sessionCount ??
       0,
-
     mentors:
       event?.mentors ??
       event?.mentorCount ??
       0,
-
     highlights:
       Array.isArray(event?.highlights)
         ? event.highlights
         : Array.isArray(event?.features)
         ? event.features
         : [],
-
     achievements:
       Array.isArray(event?.achievements)
         ? event.achievements
         : [],
-
-    image:
-      getOrientationImage(event),
-
-    registrationLink:
-      getRegistrationLink(event),
+    image: getOrientationImage(event),
+    registrationLink: getRegistrationLink(event),
   })
 );
 
-  const hasUpcomingOrientation =
-    currentOrientation.isUpcoming === true;
+const hasUpcomingOrientation = upcomingOrientations.length > 0;
+const hasPastOrientations = pastOrientations.length > 0;
 
   return (
     <div className="min-h-screen bg-background overflow-hidden">
@@ -626,13 +614,17 @@ const pastOrientations = pastOrientationEvents.map(
                     text-sm
                   "
                 >
-                  {new Date(
-                    currentOrientation.date
-                  ).toLocaleDateString("en-IN", {
-                    day: "numeric",
-                    month: "long",
-                    year: "numeric",
-                  })}
+                  {getEventDateTime(currentOrientation.event)?.toLocaleString(
+                    "en-IN",
+                    {
+                      day: "numeric",
+                      month: "long",
+                      year: "numeric",
+                      hour: "numeric",
+                      minute: "2-digit",
+                      hour12: true,
+                    }
+                  )}
                 </span>
               )}
 
