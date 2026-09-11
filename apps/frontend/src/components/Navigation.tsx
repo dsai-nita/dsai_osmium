@@ -1,4 +1,3 @@
-
 import { useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "./ui/button";
@@ -38,6 +37,11 @@ interface NavigationProps {
     } | string;
   };
 }
+
+/* =========================================================
+   ALL NAVIGATION ITEMS
+   This is the single source of truth for navigation.
+   ========================================================= */
 
 const baseNavItems = [
   {
@@ -105,12 +109,26 @@ export function Navigation({}: NavigationProps) {
     userData,
   } = useAuth();
 
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  /* =========================================================
+     IMPORTANT:
+     Separate state for mobile and desktop menus.
+     ========================================================= */
+
+  const [isMobileMenuOpen, setIsMobileMenuOpen] =
+    useState(false);
+
+  const [isDesktopMoreOpen, setIsDesktopMoreOpen] =
+    useState(false);
 
   const location = useLocation();
   const currentPath = location.pathname;
 
-  const role = userData?.role?.toLowerCase() || "";
+  /* =========================================================
+     Dashboard
+     ========================================================= */
+
+  const role =
+    userData?.role?.toLowerCase() || "";
 
   const isAdminRole =
     role.includes("president") ||
@@ -122,6 +140,10 @@ export function Navigation({}: NavigationProps) {
     ? "/admin-dashboard"
     : "/member-dashboard";
 
+  /* =========================================================
+     ALL NAVIGATION ITEMS
+     ========================================================= */
+
   const allNavItems = isLoggedIn
     ? [
         ...baseNavItems,
@@ -132,6 +154,11 @@ export function Navigation({}: NavigationProps) {
         },
       ]
     : baseNavItems;
+
+  /* =========================================================
+     DESKTOP NAVIGATION
+     Only the main links appear directly in desktop navbar.
+     ========================================================= */
 
   const desktopNavPaths = [
     "/",
@@ -146,32 +173,33 @@ export function Navigation({}: NavigationProps) {
     desktopNavPaths.includes(item.path)
   );
 
+  /* =========================================================
+     DESKTOP MORE MENU
+     Secondary navigation only.
+     ========================================================= */
+
   const desktopMoreItems = allNavItems.filter(
     (item) => !desktopNavPaths.includes(item.path)
   );
 
-  const mobileVisiblePaths = [
-    "/",
-    "/events",
-    "/innovations",
-    "/squad",
-    "/aispire",
-    dashboardPath,
-  ];
+  /* =========================================================
+     MOBILE NAVIGATION
+     
+     IMPORTANT:
+     DO NOT FILTER THIS ARRAY.
 
-  const mobileVisibleItems = allNavItems.filter((item) =>
-    mobileVisiblePaths.includes(item.path)
-  );
+     Every navigation item must appear in the mobile sidebar.
+     ========================================================= */
 
-  const mobileMenuItems = allNavItems.filter(
-    (item) => !mobileVisiblePaths.includes(item.path)
-  );
+  const mobileNavItems = allNavItems;
 
   return (
     <nav
       className="
         fixed
         top-0
+        left-0
+        right-0
         w-full
         z-50
         bg-background/80
@@ -180,10 +208,27 @@ export function Navigation({}: NavigationProps) {
         border-border
       "
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+      <div
+        className="
+          max-w-7xl
+          mx-auto
+          px-4
+          sm:px-6
+          lg:px-8
+        "
+      >
+        <div
+          className="
+            flex
+            justify-between
+            items-center
+            h-16
+          "
+        >
+          {/* =================================================
+              LOGO
+              ================================================= */}
 
-          {/* Logo */}
           <Link
             to="/"
             className="
@@ -218,7 +263,10 @@ export function Navigation({}: NavigationProps) {
             </span>
           </Link>
 
-          {/* Desktop Navigation */}
+          {/* =================================================
+              DESKTOP MAIN NAVIGATION
+              ================================================= */}
+
           <div
             className="
               hidden
@@ -229,7 +277,13 @@ export function Navigation({}: NavigationProps) {
               mx-4
             "
           >
-            <div className="flex items-center space-x-1">
+            <div
+              className="
+                flex
+                items-center
+                space-x-1
+              "
+            >
               {desktopNavItems.map((item) => (
                 <NavLink
                   key={item.path}
@@ -240,69 +294,91 @@ export function Navigation({}: NavigationProps) {
             </div>
           </div>
 
-          {/* Mobile Controls */}
+          {/* =================================================
+              MOBILE CONTROLS
+
+              Only visible below md breakpoint.
+              ================================================= */}
+
           <div
             className="
-              md:hidden
               flex
+              md:hidden
               items-center
               space-x-1
             "
           >
+            {/* Theme */}
+
             <ThemeToggleButton
               isDarkMode={isDarkMode}
               onToggleTheme={toggleTheme}
             />
 
+            {/* Mobile Menu */}
+
             <Sheet
-              open={isMenuOpen}
-              onOpenChange={setIsMenuOpen}
+              open={isMobileMenuOpen}
+              onOpenChange={setIsMobileMenuOpen}
             >
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Open menu"
+                  aria-label="Open mobile navigation"
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
+
+              {/* =================================================
+                  MOBILE SIDEBAR
+                  ================================================= */}
 
               <SheetContent
                 side="right"
                 className="
-                  w-[80vw]
-                  max-w-xs
-                  bg-card/95
-                  backdrop-blur-xl
+                  w-[85vw]
+                  max-w-sm
+                  h-screen
+                  p-0
+                  bg-card
                   border-border
                   flex
                   flex-col
                 "
               >
-                {/* Mobile Header */}
+                {/* Mobile Sidebar Header */}
+
                 <div
                   className="
-                    p-4
+                    flex
+                    items-center
+                    px-5
+                    py-5
                     border-b
                     border-border
+                    shrink-0
                   "
                 >
                   <Link
                     to="/"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() =>
+                      setIsMobileMenuOpen(false)
+                    }
                     className="
                       flex
                       items-center
-                      space-x-3
+                      gap-3
                     "
                   >
                     <img
                       src="/logo.png"
                       alt="DSAI Logo"
                       className="
-                        h-8
-                        w-8
+                        h-9
+                        w-9
+                        rounded-full
                         object-contain
                       "
                     />
@@ -319,37 +395,53 @@ export function Navigation({}: NavigationProps) {
                   </Link>
                 </div>
 
-                {/* Mobile Navigation */}
+                {/* =================================================
+                    MOBILE ALL NAVIGATION
+
+                    ALL items are rendered here.
+
+                    Home
+                    Events
+                    Innovations
+                    Squad
+                    AIspire
+                    Quiz
+                    Blog
+                    Gallery
+                    Developers
+                    Founders
+                    About Us
+                    Dashboard
+                    ================================================= */}
+
                 <div
                   className="
                     flex-1
+                    min-h-0
                     overflow-y-auto
-                    p-4
-                    space-y-2
+                    px-4
+                    py-5
                   "
                 >
-                  {mobileVisibleItems.map((item) => (
-                    <MobileNavItem
-                      key={item.path}
-                      item={item}
-                      currentPath={currentPath}
-                      onClick={() => setIsMenuOpen(false)}
-                    />
-                  ))}
-
-                  {mobileMenuItems.map((item) => (
-                    <MobileNavItem
-                      key={item.path}
-                      item={item}
-                      currentPath={currentPath}
-                      onClick={() => setIsMenuOpen(false)}
-                    />
-                  ))}
+                  <div className="space-y-1">
+                    {mobileNavItems.map((item) => (
+                      <MobileNavItem
+                        key={item.path}
+                        item={item}
+                        currentPath={currentPath}
+                        onClick={() =>
+                          setIsMobileMenuOpen(false)
+                        }
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                {/* Mobile Auth */}
+                {/* Mobile Authentication */}
+
                 <div
                   className="
+                    shrink-0
                     p-4
                     border-t
                     border-border
@@ -365,7 +457,10 @@ export function Navigation({}: NavigationProps) {
             </Sheet>
           </div>
 
-          {/* Desktop Controls */}
+          {/* =================================================
+              DESKTOP CONTROLS
+              ================================================= */}
+
           <div
             className="
               hidden
@@ -374,27 +469,33 @@ export function Navigation({}: NavigationProps) {
               space-x-2
             "
           >
+            {/* Theme */}
+
             <ThemeToggleButton
               isDarkMode={isDarkMode}
               onToggleTheme={toggleTheme}
             />
+
+            {/* Authentication */}
 
             <AuthButton
               isLoggedIn={isLoggedIn}
               userData={userData}
             />
 
+            {/* Desktop More Menu */}
+
             <Sheet
-              open={isMenuOpen}
-              onOpenChange={setIsMenuOpen}
+              open={isDesktopMoreOpen}
+              onOpenChange={setIsDesktopMoreOpen}
             >
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
                   size="icon"
-                  aria-label="Open menu"
+                  aria-label="Open more navigation"
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-5 w-5" />
                 </Button>
               </SheetTrigger>
 
@@ -403,36 +504,44 @@ export function Navigation({}: NavigationProps) {
                 className="
                   w-[80vw]
                   max-w-xs
-                  bg-card/95
-                  backdrop-blur-xl
+                  bg-card
                   border-border
                   flex
                   flex-col
+                  p-0
                 "
               >
-                {/* More Menu Header */}
+                {/* Desktop More Header */}
+
                 <div
                   className="
-                    p-4
+                    flex
+                    items-center
+                    px-5
+                    py-5
                     border-b
                     border-border
+                    shrink-0
                   "
                 >
                   <Link
                     to="/"
-                    onClick={() => setIsMenuOpen(false)}
+                    onClick={() =>
+                      setIsDesktopMoreOpen(false)
+                    }
                     className="
                       flex
                       items-center
-                      space-x-3
+                      gap-3
                     "
                   >
                     <img
                       src="/logo.png"
                       alt="DSAI Logo"
                       className="
-                        h-8
-                        w-8
+                        h-9
+                        w-9
+                        rounded-full
                         object-contain
                       "
                     />
@@ -449,28 +558,35 @@ export function Navigation({}: NavigationProps) {
                   </Link>
                 </div>
 
-                {/* More Navigation */}
+                {/* Desktop More Navigation */}
+
                 <div
                   className="
                     flex-1
+                    min-h-0
                     overflow-y-auto
                     p-4
-                    space-y-2
                   "
                 >
-                  {desktopMoreItems.map((item) => (
-                    <MobileNavItem
-                      key={item.path}
-                      item={item}
-                      currentPath={currentPath}
-                      onClick={() => setIsMenuOpen(false)}
-                    />
-                  ))}
+                  <div className="space-y-1">
+                    {desktopMoreItems.map((item) => (
+                      <MobileNavItem
+                        key={item.path}
+                        item={item}
+                        currentPath={currentPath}
+                        onClick={() =>
+                          setIsDesktopMoreOpen(false)
+                        }
+                      />
+                    ))}
+                  </div>
                 </div>
 
-                {/* Desktop Sheet Auth */}
+                {/* Desktop More Auth */}
+
                 <div
                   className="
+                    shrink-0
                     p-4
                     border-t
                     border-border
@@ -491,9 +607,9 @@ export function Navigation({}: NavigationProps) {
   );
 }
 
-/* =========================
-   Desktop Navigation Link
-========================= */
+/* =========================================================
+   DESKTOP NAVIGATION LINK
+   ========================================================= */
 
 function NavLink({
   item,
@@ -505,7 +621,8 @@ function NavLink({
   };
   currentPath: string;
 }) {
-  const isActive = currentPath === item.path;
+  const isActive =
+    currentPath === item.path;
 
   return (
     <Link
@@ -549,9 +666,9 @@ function NavLink({
   );
 }
 
-/* =========================
-   Mobile Navigation Item
-========================= */
+/* =========================================================
+   MOBILE NAVIGATION ITEM
+   ========================================================= */
 
 function MobileNavItem({
   item,
@@ -566,7 +683,8 @@ function MobileNavItem({
   currentPath: string;
   onClick: () => void;
 }) {
-  const isActive = currentPath === item.path;
+  const isActive =
+    currentPath === item.path;
 
   const Icon = item.icon;
 
@@ -578,12 +696,14 @@ function MobileNavItem({
         flex
         items-center
         gap-4
+        w-full
         px-4
         py-3
-        text-base
+        text-sm
         font-medium
         rounded-lg
-        transition-colors
+        transition-all
+        duration-200
         ${
           isActive
             ? "text-accent bg-accent/10"
@@ -591,16 +711,24 @@ function MobileNavItem({
         }
       `}
     >
-      <Icon className="h-5 w-5" />
+      <Icon
+        className="
+          h-5
+          w-5
+          shrink-0
+        "
+      />
 
-      {item.label}
+      <span>
+        {item.label}
+      </span>
     </Link>
   );
 }
 
-/* =========================
-   Theme Toggle
-========================= */
+/* =========================================================
+   THEME TOGGLE
+   ========================================================= */
 
 function ThemeToggleButton({
   isDarkMode,
@@ -648,9 +776,9 @@ function ThemeToggleButton({
   );
 }
 
-/* =========================
-   Authentication Button
-========================= */
+/* =========================================================
+   AUTHENTICATION BUTTON
+   ========================================================= */
 
 function AuthButton({
   isLoggedIn,
@@ -662,12 +790,17 @@ function AuthButton({
 > & {
   isMobile?: boolean;
 }) {
-  const [showProfile, setShowProfile] = useState(false);
+  const [showProfile, setShowProfile] =
+    useState(false);
+
   const [selectedImage, setSelectedImage] =
     useState<string | null>(null);
+
   const [selectedFile, setSelectedFile] =
     useState<File | null>(null);
-  const [isUpdating, setIsUpdating] = useState(false);
+
+  const [isUpdating, setIsUpdating] =
+    useState(false);
 
   const fileInputRef =
     useRef<HTMLInputElement>(null);
@@ -675,6 +808,10 @@ function AuthButton({
   const buttonClass = isMobile
     ? "w-full text-base py-3"
     : "px-2";
+
+  /* =========================================================
+     LOGGED IN USER
+     ========================================================= */
 
   if (isLoggedIn && userData) {
     const role =
@@ -685,10 +822,6 @@ function AuthButton({
       role.includes("admin") ||
       role.includes("general secretary") ||
       role.includes("assistant general secretary");
-
-    const dashboardPath = isAdminRole
-      ? "/admin-dashboard"
-      : "/member-dashboard";
 
     const profileImage =
       typeof userData.profileImage === "string"
@@ -705,16 +838,19 @@ function AuthButton({
       profileImage ||
       fallbackImage;
 
-    /* =========================
-       Select Image
-    ========================= */
+    /* =======================================================
+       IMAGE SELECT
+       ======================================================= */
 
     const handleImageSelect = (
       e: React.ChangeEvent<HTMLInputElement>
     ) => {
-      const file = e.target.files?.[0];
+      const file =
+        e.target.files?.[0];
 
-      if (!file) return;
+      if (!file) {
+        return;
+      }
 
       if (!file.type.startsWith("image/")) {
         toast.error(
@@ -736,7 +872,8 @@ function AuthButton({
 
       setSelectedFile(file);
 
-      const reader = new FileReader();
+      const reader =
+        new FileReader();
 
       reader.onloadend = () => {
         setSelectedImage(
@@ -747,9 +884,9 @@ function AuthButton({
       reader.readAsDataURL(file);
     };
 
-    /* =========================
-       Update Profile Image
-    ========================= */
+    /* =======================================================
+       UPDATE PROFILE IMAGE
+       ======================================================= */
 
     const handleUpdateImage = async () => {
       if (
@@ -763,12 +900,8 @@ function AuthButton({
       try {
         setIsUpdating(true);
 
-        console.log(
-          "Selected file:",
-          selectedFile
-        );
-
-        const formData = new FormData();
+        const formData =
+          new FormData();
 
         formData.append(
           "image",
@@ -779,25 +912,6 @@ function AuthButton({
           await usersApi.updateProfile(
             formData
           );
-
-        console.log(
-          "Profile update response:",
-          res
-        );
-
-        /*
-         * Backend response expected:
-         *
-         * {
-         *   success: true,
-         *   message: "...",
-         *   data: {
-         *     profileImage: {
-         *       url: "..."
-         *     }
-         *   }
-         * }
-         */
 
         const updatedImage =
           res?.data?.profileImage?.url;
@@ -833,6 +947,7 @@ function AuthButton({
     return (
       <>
         {/* Profile Button */}
+
         <Button
           variant="ghost"
           className={`${buttonClass} rounded-full`}
@@ -844,7 +959,8 @@ function AuthButton({
           <img
             src={currentImage}
             alt={
-              userData.name || "Profile"
+              userData.name ||
+              "Profile"
             }
             className="
               h-9
@@ -860,11 +976,13 @@ function AuthButton({
           />
         </Button>
 
-        {/* Profile Modal */}
+        {/* =================================================
+            PROFILE MODAL
+            ================================================= */}
+
         {showProfile && (
           <div
             className="
-            mt-60
               fixed
               inset-0
               z-[100]
@@ -897,62 +1015,111 @@ function AuthButton({
                 e.stopPropagation()
               }
             >
-              {/* Modal Header */}
-              <div className="text-center mb-6">
-                <h2 className="text-xl font-bold">
+              {/* Header */}
+
+              <div
+                className="
+                  text-center
+                  mb-6
+                "
+              >
+                <h2
+                  className="
+                    text-xl
+                    font-bold
+                  "
+                >
                   Profile
                 </h2>
 
-                <p className="text-sm text-muted-foreground mt-1">
+                <p
+                  className="
+                    text-sm
+                    text-muted-foreground
+                    mt-1
+                  "
+                >
                   Your profile picture
                 </p>
               </div>
 
               {/* Profile Preview */}
-              <div className="flex justify-center mb-6">
-                <div className="relative">
-                  <img
-                    src={currentImage}
-                    alt="Profile Preview"
-                    className="
-                      h-32
-                      w-32
-                      rounded-full
-                      object-cover
-                      border-4
-                      border-border
-                      shadow-lg
-                    "
-                  />
-                </div>
+
+              <div
+                className="
+                  flex
+                  justify-center
+                  mb-6
+                "
+              >
+                <img
+                  src={currentImage}
+                  alt="Profile Preview"
+                  className="
+                    h-32
+                    w-32
+                    rounded-full
+                    object-cover
+                    border-4
+                    border-border
+                    shadow-lg
+                  "
+                />
               </div>
 
               {/* Hidden File Input */}
+
               <input
                 ref={fileInputRef}
                 type="file"
-                accept="image/png,image/jpeg,image/jpg,image/webp"
+                accept="
+                  image/png,
+                  image/jpeg,
+                  image/jpg,
+                  image/webp
+                "
                 className="hidden"
                 onChange={handleImageSelect}
               />
 
               {/* User Information */}
-              <div className="text-center mb-6">
-                <h3 className="font-semibold text-lg">
+
+              <div
+                className="
+                  text-center
+                  mb-6
+                "
+              >
+                <h3
+                  className="
+                    font-semibold
+                    text-lg
+                  "
+                >
                   {userData.name}
                 </h3>
 
                 {userData.role && (
-                  <p className="text-sm text-muted-foreground capitalize">
+                  <p
+                    className="
+                      text-sm
+                      text-muted-foreground
+                      capitalize
+                    "
+                  >
                     {userData.role}
                   </p>
                 )}
               </div>
 
               {/* Choose Image */}
+
               <Button
                 variant="outline"
-                className="w-full mb-3"
+                className="
+                  w-full
+                  mb-3
+                "
                 disabled={isUpdating}
                 onClick={() =>
                   fileInputRef.current?.click()
@@ -962,15 +1129,23 @@ function AuthButton({
               </Button>
 
               {/* Update Image */}
+
               {selectedFile && (
                 <Button
                   className="w-full"
-                  onClick={handleUpdateImage}
+                  onClick={
+                    handleUpdateImage
+                  }
                   disabled={isUpdating}
                 >
                   {isUpdating ? (
                     <>
-                      <span className="mr-2 animate-spin">
+                      <span
+                        className="
+                          mr-2
+                          animate-spin
+                        "
+                      >
                         ⟳
                       </span>
 
@@ -983,6 +1158,7 @@ function AuthButton({
               )}
 
               {/* Cancel */}
+
               <button
                 disabled={isUpdating}
                 onClick={() => {
@@ -1011,9 +1187,9 @@ function AuthButton({
     );
   }
 
-  /* =========================
-     Logged Out
-  ========================= */
+  /* =========================================================
+     LOGGED OUT USER
+     ========================================================= */
 
   return (
     <div
@@ -1053,4 +1229,3 @@ function AuthButton({
     </div>
   );
 }
-
