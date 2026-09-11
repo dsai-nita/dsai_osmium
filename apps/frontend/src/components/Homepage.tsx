@@ -46,6 +46,8 @@ interface Event {
 
   date?: string;
   startDate?: string;
+  startTime?: string;
+  endTime?: string;
 
   type?: string;
   category?: string;
@@ -118,35 +120,91 @@ export function Homepage() {
 
       console.log("Parsed events:", events);
 
+      const getEventDateTime = (event: Event): Date | null => {
+  const date = event.date || event.startDate;
+
+  if (!date) return null;
+
+  // Extract YYYY-MM-DD from ISO date
+  const dateOnly = String(date).split("T")[0];
+
+  // Use startTime
+  if (event.startTime) {
+    let time = String(event.startTime).trim();
+
+    // Convert HH:MM -> HH:MM:SS
+    if (/^\d{2}:\d{2}$/.test(time)) {
+      time += ":00";
+    }
+
+    const dateTime = new Date(`${dateOnly}T${time}`);
+
+    if (!Number.isNaN(dateTime.getTime())) {
+      return dateTime;
+    }
+  }
+
+  // If no startTime, use beginning of the day
+  const dateTime = new Date(`${dateOnly}T00:00:00`);
+
+  return Number.isNaN(dateTime.getTime()) ? null : dateTime;
+};
+
+
+
+
       const now = new Date();
+const nowTimestamp = now.getTime();
+
+const futureEvents = events
+  .map((event) => ({
+    event,
+    dateTime: getEventDateTime(event),
+  }))
+  .filter(({ dateTime }) => {
+    return (
+      dateTime !== null &&
+      dateTime.getTime() >= nowTimestamp
+    );
+  })
+  .sort((a, b) => {
+    return (
+      a.dateTime!.getTime() -
+      b.dateTime!.getTime()
+    );
+  })
+  .map(({ event }) => event);
+
+console.log("Future events:", futureEvents);
+      // const now = new Date();
 
      
-      const futureEvents = events
-        .filter((event) => {
-          const eventDate = event.date || event.startDate;
+      // const futureEvents = events
+      //   .filter((event) => {
+      //     const eventDate = event.date || event.startDate;
 
-          if (!eventDate) return false;
+      //     if (!eventDate) return false;
 
-          const parsedDate = new Date(eventDate);
+      //     const parsedDate = new Date(eventDate);
 
-          return (
-            !Number.isNaN(parsedDate.getTime()) &&
-            parsedDate >= now
-          );
-        })
-        .sort((a, b) => {
-          const dateA = new Date(
-            a.date || a.startDate || ""
-          ).getTime();
+      //     return (
+      //       !Number.isNaN(parsedDate.getTime()) &&
+      //       parsedDate >= now
+      //     );
+      //   })
+      //   .sort((a, b) => {
+      //     const dateA = new Date(
+      //       a.date || a.startDate || ""
+      //     ).getTime();
 
-          const dateB = new Date(
-            b.date || b.startDate || ""
-          ).getTime();
+      //     const dateB = new Date(
+      //       b.date || b.startDate || ""
+      //     ).getTime();
 
-          return dateA - dateB;
-        });
+      //     return dateA - dateB;
+      //   });
 
-      console.log("Future events:", futureEvents);
+      // console.log("Future events:", futureEvents);
 
      
       const featured =
