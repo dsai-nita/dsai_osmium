@@ -88,7 +88,143 @@ useEffect(() => {
 
 
 
-const getEventDate = (event: any) => {
+// const getEventDate = (event: any) => {
+//   return (
+//     event?.startDate ||
+//     event?.date ||
+//     event?.eventDate ||
+//     event?.start_date ||
+//     null
+//   );
+// };
+
+// const getEventTime = (event: any) => {
+//   return (
+//     event?.startTime ||
+//     event?.endTime||
+//     event?.time ||
+//     event?.eventTime ||
+//     event?.start_time ||
+//     null
+//   );
+// };
+
+// const getEventDateTime = (event: any): Date | null => {
+//   const date = getEventDate(event);
+//   const time = getEventTime(event);
+
+//   if (!date) return null;
+
+//   const dateString = String(date).trim();
+
+//   // Extract only YYYY-MM-DD from date
+//   const dateOnly = dateString.split("T")[0];
+
+//   // Combine date + startTime
+//   if (time) {
+//     const timeString = String(time).trim();
+
+//     const parsed = new Date(`${dateOnly}T${timeString}`);
+
+//     if (!isNaN(parsed.getTime())) {
+//       return parsed;
+//     }
+//   }
+
+//   // If startTime is not available, use 00:00
+//   const parsed = new Date(`${dateOnly}T00:00:00`);
+
+//   return isNaN(parsed.getTime()) ? null : parsed;
+// };;
+
+
+// const getRegistrationLink = (event: any) => {
+//   return (
+//     event?.registrationLink ||
+//     event?.registrationUrl ||
+//     event?.registerLink ||
+//     event?.registrationURL ||
+//     event?.gformLink ||
+//     event?.googleFormLink ||
+//     event?.googleForm ||
+//     ""
+//   );
+// };
+
+
+// const getOrientationImage = (event: any) => {
+//   return (
+//     event?.image ||
+//     event?.imageUrl ||
+//     event?.bannerImage ||
+//     event?.banner ||
+//     event?.coverImage?.url ||
+//     ""
+//   );
+// };
+
+
+// const getEventDescription = (event: any) => {
+//   return (
+//     event?.description ||
+//     event?.shortDescription ||
+//     event?.details ||
+//     "Join DSAI and explore the world of Data Science and Artificial Intelligence."
+//   );
+// };
+
+
+// const getFeatures = (event: any) => {
+//   if (Array.isArray(event?.features)) {
+//     return event.features;
+//   }
+
+//   if (Array.isArray(event?.highlights)) {
+//     return event.highlights;
+//   }
+
+//   return [
+//     "Introduction to AI & Data Science",
+//     "Programming and technical workshops",
+//     "Meet seniors and mentors",
+//     "Team building and networking",
+//     "Access to DSAI learning resources",
+//   ];
+// };
+
+
+// const getEligibility = (event: any) => {
+//   if (Array.isArray(event?.eligibility)) {
+//     return event.eligibility;
+//   }
+
+//   return [
+//     "Students interested in AI and Data Science",
+//     "No prior programming experience required",
+//     "Enthusiasm to learn and explore technology",
+//   ];
+// };
+
+
+// const now = new Date();
+// const nowTimestamp = now.getTime();
+
+// const upcomingOrientations = orientationEvents
+//   .map((event: any) => ({
+//     event,
+//     dateTime: getEventDateTime(event),
+//   }))
+//   .filter(({ dateTime }) => {
+//     return dateTime !== null && dateTime.getTime() >= nowTimestamp;
+//   })
+//   .sort((a, b) => {
+//     return a.dateTime!.getTime() - b.dateTime!.getTime();
+//   });
+//   console.log(upcomingOrientations);
+
+
+
+  const getEventDate = (event: any) => {
   return (
     event?.startDate ||
     event?.date ||
@@ -101,7 +237,6 @@ const getEventDate = (event: any) => {
 const getEventTime = (event: any) => {
   return (
     event?.startTime ||
-    event?.endTime||
     event?.time ||
     event?.eventTime ||
     event?.start_time ||
@@ -115,27 +250,33 @@ const getEventDateTime = (event: any): Date | null => {
 
   if (!date) return null;
 
-  const dateString = String(date).trim();
+  // Get only YYYY-MM-DD from date
+  const dateOnly = String(date).trim().split("T")[0];
 
-  // Extract only YYYY-MM-DD from date
-  const dateOnly = dateString.split("T")[0];
-
-  // Combine date + startTime
+  // Date + START TIME
   if (time) {
-    const timeString = String(time).trim();
+    let timeString = String(time).trim();
 
-    const parsed = new Date(`${dateOnly}T${timeString}`);
+    // Convert HH:MM to HH:MM:SS
+    if (/^\d{2}:\d{2}$/.test(timeString)) {
+      timeString += ":00";
+    }
 
-    if (!isNaN(parsed.getTime())) {
-      return parsed;
+    // Make sure time is valid
+    if (/^\d{2}:\d{2}:\d{2}$/.test(timeString)) {
+      const parsed = new Date(`${dateOnly}T${timeString}`);
+
+      if (!isNaN(parsed.getTime())) {
+        return parsed;
+      }
     }
   }
 
-  // If startTime is not available, use 00:00
+  // If no startTime, use midnight
   const parsed = new Date(`${dateOnly}T00:00:00`);
 
   return isNaN(parsed.getTime()) ? null : parsed;
-};;
+};
 
 
 const getRegistrationLink = (event: any) => {
@@ -206,21 +347,39 @@ const getEligibility = (event: any) => {
 };
 
 
-const now = new Date();
-const nowTimestamp = now.getTime();
+// Current date and time
+const nowTimestamp = new Date().getTime();
 
 const upcomingOrientations = orientationEvents
-  .map((event: any) => ({
-    event,
-    dateTime: getEventDateTime(event),
-  }))
+  .map((event: any) => {
+    const dateTime = getEventDateTime(event);
+
+    console.log("EVENT:", event.title);
+    console.log("DATE:", getEventDate(event));
+    console.log("START TIME:", getEventTime(event));
+    console.log("COMBINED DATE TIME:", dateTime);
+    console.log("IS UPCOMING:", dateTime ? dateTime.getTime() >= nowTimestamp : false);
+
+    return {
+      event,
+      dateTime,
+    };
+  })
   .filter(({ dateTime }) => {
     return dateTime !== null && dateTime.getTime() >= nowTimestamp;
   })
   .sort((a, b) => {
     return a.dateTime!.getTime() - b.dateTime!.getTime();
   });
-  console.log(upcomingOrientations);
+
+console.log("UPCOMING ORIENTATIONS:", upcomingOrientations);
+
+
+
+
+
+
+  
 
 const pastOrientationEvents = orientationEvents
   .map((event: any) => ({
