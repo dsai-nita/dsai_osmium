@@ -116,20 +116,25 @@ const getEventDateTime = (event: any): Date | null => {
 
   const dateString = String(date).trim();
 
-  if (dateString.includes("T") || /\d{2}:\d{2}/.test(dateString)) {
-    const parsed = new Date(dateString);
-    return isNaN(parsed.getTime()) ? null : parsed;
-  }
+  // Extract only YYYY-MM-DD from date
+  const dateOnly = dateString.split("T")[0];
 
+  // Combine date + startTime
   if (time) {
     const timeString = String(time).trim();
-    const parsed = new Date(`${dateString}T${timeString}`);
-    if (!isNaN(parsed.getTime())) return parsed;
+
+    const parsed = new Date(`${dateOnly}T${timeString}`);
+
+    if (!isNaN(parsed.getTime())) {
+      return parsed;
+    }
   }
 
-  const parsed = new Date(`${dateString}T00:00:00`);
+  // If startTime is not available, use 00:00
+  const parsed = new Date(`${dateOnly}T00:00:00`);
+
   return isNaN(parsed.getTime()) ? null : parsed;
-};
+};;
 
 
 const getRegistrationLink = (event: any) => {
