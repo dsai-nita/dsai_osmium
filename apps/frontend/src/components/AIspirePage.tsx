@@ -101,6 +101,7 @@ const getEventDate = (event: any) => {
 const getEventTime = (event: any) => {
   return (
     event?.startTime ||
+    event?.endTime||
     event?.time ||
     event?.eventTime ||
     event?.start_time ||
@@ -219,6 +220,7 @@ const upcomingOrientations = orientationEvents
   .sort((a, b) => {
     return a.dateTime!.getTime() - b.dateTime!.getTime();
   });
+  console.log(upcomingOrientations);
 
 const pastOrientationEvents = orientationEvents
   .map((event: any) => ({
